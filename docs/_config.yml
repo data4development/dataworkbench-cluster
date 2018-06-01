@@ -1,0 +1,18 @@
+
+# Site settings
+title: DataWorkbench cluster setup
+email: rolf@drostan.org
+description: Configurations for the Kubernetes cluster
+brand: DataWorkbench
+github: https://github.com/data4development/dataworkbench-cluster
+
+defaults:
+  -
+    values:
+      layout: "default"
+
+remote_theme: data4development/dataworkbench-jekyll-theme
+
+# Uncomment the next line to use jekyll on your local machine
+# (see documentation for alternatives, more info)
+# theme: dataworkbench-jekyll-theme
