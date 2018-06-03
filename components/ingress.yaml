@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: validator-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: dev1-dataworkbench-io
+spec:
+  backend:
+    serviceName: homepage
+    servicePort: 80
+  rules:
+    - http:
+        paths:
+          # GKE ingress uses url-maps that require wildcards
+          # and also a separate (duplicate) rule for URLs to a directory
+          # but not ending with a '/'
+        - path: /iati-feedback
+          backend:
+            serviceName: validator-front-end
+            servicePort: 80
+        - path: /iati-feedback/*
+          backend:
+            serviceName: validator-front-end
+            servicePort: 80
+        - path: /api
+          backend:
+            serviceName: validator-api
+            servicePort: 80
+        - path: /api/*
+          backend:
+            serviceName: validator-api
+            servicePort: 80
+        - path: /explorer
+          backend:
+            serviceName: validator-api
+            servicePort: 80
+        - path: /explorer/*
+          backend:
+            serviceName: validator-api
+            servicePort: 80
