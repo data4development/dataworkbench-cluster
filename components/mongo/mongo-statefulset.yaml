@@ -38,20 +38,8 @@ spec:
         role: mongo
         environment: development
     spec:
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
-              - key: env
-                operator: In
-                values:
-                - develop
-              - key: focus
-                operator: In
-                values:
-                - application
+      nodeSelector:
+        focus: application
       terminationGracePeriodSeconds: 10
       containers:
         - name: mongo
