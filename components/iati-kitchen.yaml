@@ -1,0 +1,29 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: iati-remove-obsolete-data
+  labels:
+    env: develop
+    tier: backend
+    focus: sync
+spec:
+  schedule: "3/10 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            focus: validation
+          containers:
+          - name: iati-kitchen
+            image: gcr.io/dataworkbench-io/iati-kitchen:0.3.5
+            args:
+              - "-file=remove_obsolete_data.kjb"
+            resources:
+              requests:
+                memory: "512Mi"
+                cpu: "200m"
+              limits:
+                memory: "1Gi"
+          restartPolicy: Never
