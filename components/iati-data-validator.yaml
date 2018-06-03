@@ -1,0 +1,151 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: iati-data-validator
+  labels:
+    env: develop
+    tier: backend
+    focus: validation
+spec:
+  schedule: "7/15 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            focus: validation
+          containers:
+          - name: iati-data-validator-rules
+            image: gcr.io/dataworkbench-io/iati-data-validator:0.1.3
+            args:
+              - rules
+            volumeMounts:
+            - mountPath: /workspace
+              name: workspace
+            resources:
+              requests:
+                memory: "1Gi"
+                cpu: "700m"
+              limits:
+                memory: "3Gi"
+          restartPolicy: OnFailure
+          volumes:
+          - name: workspace
+            hostPath:
+              path: /home/workspace
+              type: DirectoryOrCreate
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: iati-data-validator-big
+  labels:
+    env: develop
+    tier: backend
+    focus: validation
+spec:
+  schedule: "23,53 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            focus: validation
+          containers:
+          - name: iati-data-validator-rules-big
+            image: gcr.io/dataworkbench-io/iati-data-validator:0.1.3
+            args:
+              - rules-big
+            volumeMounts:
+            - mountPath: /workspace
+              name: workspace
+            resources:
+              requests:
+                memory: "1Gi"
+                cpu: "700m"
+              limits:
+                memory: "3Gi"
+          restartPolicy: OnFailure
+          volumes:
+          - name: workspace
+            hostPath:
+              path: /home/workspace
+              type: DirectoryOrCreate
+---
+  apiVersion: batch/v1beta1
+  kind: CronJob
+  metadata:
+    name: iati-data-svrl
+    labels:
+      env: develop
+      tier: backend
+      focus: svrl
+  spec:
+    schedule: "9/10 * * * *"
+    concurrencyPolicy: Forbid
+    jobTemplate:
+      spec:
+        template:
+          spec:
+            nodeSelector:
+              focus: validation
+            containers:
+            - name: iati-data-validator-svrl
+              image: gcr.io/dataworkbench-io/iati-data-validator:0.1.3
+              args:
+                - svrl
+              volumeMounts:
+              - mountPath: /workspace
+                name: workspace
+              resources:
+                requests:
+                  memory: "512Mi"
+                  cpu: "200m"
+                limits:
+                  memory: "3Gi"
+            restartPolicy: Never
+            volumes:
+            - name: workspace
+              hostPath:
+                path: /home/workspace
+                type: DirectoryOrCreate
+---
+  apiVersion: batch/v1beta1
+  kind: CronJob
+  metadata:
+    name: iati-data-json
+    labels:
+      env: develop
+      tier: backend
+      focus: json
+  spec:
+    schedule: "4/10 * * * *"
+    concurrencyPolicy: Forbid
+    jobTemplate:
+      spec:
+        template:
+          spec:
+            nodeSelector:
+              focus: validation
+            containers:
+            - name: iati-data-validator-json
+              image: gcr.io/dataworkbench-io/iati-data-validator:0.1.3
+              args:
+                - json
+              volumeMounts:
+              - mountPath: /workspace
+                name: workspace
+              resources:
+                requests:
+                  memory: "512Mi"
+                  cpu: "200m"
+                limits:
+                  memory: "3Gi"
+            restartPolicy: Never
+            volumes:
+            - name: workspace
+              hostPath:
+                path: /home/workspace
+                type: DirectoryOrCreate

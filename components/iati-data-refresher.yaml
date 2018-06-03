@@ -1,0 +1,93 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: iati-data-update
+  labels:
+    env: develop
+    tier: backend
+    focus: sync
+spec:
+  schedule: "14,29,44,59 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            focus: validation
+          containers:
+          - name: iati-data-update
+            image: gcr.io/dataworkbench-io/iati-data-refresher:0.4.11
+            volumeMounts:
+            - mountPath: /home/snapshot
+              name: iati-snapshot
+            - mountPath: /home/urls
+              name: iati-urls
+            - mountPath: /home/workspace
+              name: workspace
+            resources:
+              requests:
+                memory: "512Mi"
+                cpu: "200m"
+              limits:
+                memory: "1Gi"
+          restartPolicy: OnFailure
+          volumes:
+          - name: iati-snapshot
+            hostPath:
+              path: /home/snapshot
+              type: DirectoryOrCreate
+          - name: iati-urls
+            hostPath:
+              path: /home/urls
+              type: DirectoryOrCreate
+          - name: workspace
+            hostPath:
+              path: /home/workspace
+              type: DirectoryOrCreate
+---
+    apiVersion: batch/v1beta1
+    kind: CronJob
+    metadata:
+      name: iati-data-sync
+    spec:
+      schedule: "3/10 * * * *"
+      concurrencyPolicy: Forbid
+      jobTemplate:
+        spec:
+          template:
+            spec:
+              nodeSelector:
+                focus: validation
+              containers:
+              - name: iati-data-sync
+                image: gcr.io/dataworkbench-io/iati-data-refresher:0.4.11
+                command:
+                  - "./sync-files"
+                volumeMounts:
+                - mountPath: /home/snapshot
+                  name: iati-snapshot
+                - mountPath: /home/urls
+                  name: iati-urls
+                - mountPath: /home/workspace
+                  name: workspace
+                resources:
+                  requests:
+                    memory: "512Mi"
+                    cpu: "200m"
+                  limits:
+                    memory: "1Gi"
+              restartPolicy: OnFailure
+              volumes:
+              - name: iati-snapshot
+                hostPath:
+                  path: /home/snapshot
+                  type: DirectoryOrCreate
+              - name: iati-urls
+                hostPath:
+                  path: /home/urls
+                  type: DirectoryOrCreate
+              - name: workspace
+                hostPath:
+                  path: /home/workspace
+                  type: DirectoryOrCreate
