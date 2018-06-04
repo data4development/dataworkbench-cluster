@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gsutilbox
+  labels:
+    app: gsutilbox
+spec:
+  template:
+    metadata:
+      labels:
+        app: gsutilbox
+    spec:
+      nodeSelector:
+        focus: validation
+      containers:
+      - name: gsutilbox
+        image: gcr.io/dataworkbench-io/iati-data-refresher:0.4.12
+        command:
+          - "/bin/sleep"
+          - "2h"
+        volumeMounts:
+        - mountPath: /home/snapshot
+          name: iati-snapshot
+        - mountPath: /home/urls
+          name: iati-urls
+        - mountPath: /home/workspace
+          name: workspace
+      restartPolicy: Never
+      volumes:
+      - name: iati-snapshot
+        hostPath:
+          path: /home/snapshot
+          type: DirectoryOrCreate
+      - name: iati-urls
+        hostPath:
+          path: /home/urls
+          type: DirectoryOrCreate
+      - name: workspace
+        hostPath:
+          path: /home/workspace
+          type: DirectoryOrCreate
