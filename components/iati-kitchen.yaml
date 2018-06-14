@@ -24,9 +24,51 @@ spec:
               requests:
                 memory: "512Mi"
                 cpu: "200m"
-              limits:
-                memory: "1Gi"
+            volumeMounts:
+            - mountPath: /home/workspace
+              name: workspace
           restartPolicy: Never
+          volumes:
+          - name: workspace
+            hostPath:
+              path: /home/workspace
+              type: DirectoryOrCreate
+---
+  apiVersion: batch/v1beta1
+  kind: CronJob
+  metadata:
+    name: iati-remove-orphan-data
+    labels:
+      env: develop
+      tier: backend
+      focus: sync
+  spec:
+    schedule: "53 * * * *"
+    concurrencyPolicy: Forbid
+    jobTemplate:
+      spec:
+        template:
+          spec:
+            nodeSelector:
+              focus: validation
+            containers:
+            - name: iati-kitchen
+              image: gcr.io/dataworkbench-io/iati-kitchen:0.3.15
+              args:
+                - "-file=remove_orphan_data.kjb"
+              resources:
+                requests:
+                  memory: "512Mi"
+                  cpu: "200m"
+              volumeMounts:
+              - mountPath: /home/workspace
+                name: workspace
+            restartPolicy: Never
+            volumes:
+            - name: workspace
+              hostPath:
+                path: /home/workspace
+                type: DirectoryOrCreate
 ---
   apiVersion: batch/v1beta1
   kind: CronJob

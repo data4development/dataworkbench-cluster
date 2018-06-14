@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: iati-remove-obsolete-data-oneoff
+  name: iati-remove-orphan-data-oneoff
   labels:
     env: develop
     tier: backend
@@ -13,10 +13,9 @@ spec:
         focus: validation
       containers:
       - name: iati-kitchen
-        image: gcr.io/dataworkbench-io/iati-kitchen:0.3.8
+        image: gcr.io/dataworkbench-io/iati-kitchen:0.3.15
         args:
-          - "-file=remove_obsolete_data.kjb"
-          - "-level=Detailed"
+          - "-file=remove_orphan_data.kjb"
         resources:
           requests:
             memory: "512Mi"
