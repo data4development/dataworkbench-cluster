@@ -7,4 +7,4 @@ The DataWorkbench consists of applications running as services in containers on 
 
 The current version uses the Google Kubernetes Engine (GKE) to host and manage the cluster, and Google Cloud products to provide storage services and load balancing.
 
-![](./deployment-overview.svg)
+![](./deployment-overview.drawio.svg)
