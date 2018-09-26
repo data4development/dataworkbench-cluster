@@ -13,10 +13,9 @@ spec:
         focus: validation
       containers:
       - name: iati-kitchen
-        image: gcr.io/dataworkbench-io/iati-kitchen:0.3.8
+        image: gcr.io/dataworkbench-io/iati-kitchen:0.3.17
         args:
           - "-file=remove_obsolete_data.kjb"
-          - "-level=Detailed"
         resources:
           requests:
             memory: "512Mi"

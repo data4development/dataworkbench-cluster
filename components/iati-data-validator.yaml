@@ -17,7 +17,7 @@ spec:
             focus: validation
           containers:
           - name: iati-data-validator-rules
-            image: gcr.io/dataworkbench-io/iati-data-validator:0.1.6
+            image: gcr.io/dataworkbench-io/iati-data-validator:0.2.0
             args:
               - rules
             volumeMounts:
@@ -55,7 +55,7 @@ spec:
             focus: validation
           containers:
           - name: iati-data-validator-rules-big
-            image: gcr.io/dataworkbench-io/iati-data-validator:0.1.6
+            image: gcr.io/dataworkbench-io/iati-data-validator:0.2.0
             args:
               - rules-big
             volumeMounts:
@@ -93,7 +93,7 @@ spec:
               focus: validation
             containers:
             - name: iati-data-validator-svrl
-              image: gcr.io/dataworkbench-io/iati-data-validator:0.1.6
+              image: gcr.io/dataworkbench-io/iati-data-validator:0.2.0
               args:
                 - svrl
               volumeMounts:
@@ -131,7 +131,7 @@ spec:
               focus: validation
             containers:
             - name: iati-data-validator-json
-              image: gcr.io/dataworkbench-io/iati-data-validator:0.1.6
+              image: gcr.io/dataworkbench-io/iati-data-validator:0.2.0
               args:
                 - json
               volumeMounts:
