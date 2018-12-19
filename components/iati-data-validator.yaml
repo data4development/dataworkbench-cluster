@@ -74,78 +74,78 @@ spec:
               path: /home/workspace
               type: DirectoryOrCreate
 ---
-  apiVersion: batch/v1beta1
-  kind: CronJob
-  metadata:
-    name: iati-data-svrl
-    labels:
-      env: develop
-      tier: backend
-      focus: svrl
-  spec:
-    schedule: "9/10 * * * *"
-    concurrencyPolicy: Forbid
-    jobTemplate:
-      spec:
-        template:
-          spec:
-            nodeSelector:
-              focus: validation
-            containers:
-            - name: iati-data-validator-svrl
-              image: gcr.io/dataworkbench-io/iati-data-validator:0.2.0
-              args:
-                - svrl
-              volumeMounts:
-              - mountPath: /workspace
-                name: workspace
-              resources:
-                requests:
-                  memory: "512Mi"
-                  cpu: "200m"
-                limits:
-                  memory: "3Gi"
-            restartPolicy: Never
-            volumes:
-            - name: workspace
-              hostPath:
-                path: /home/workspace
-                type: DirectoryOrCreate
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: iati-data-xml-check-big
+  labels:
+    env: develop
+    tier: backend
+    focus: validation
+spec:
+  schedule: "7/15 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            focus: validation
+          containers:
+          - name: iati-data-xml-check-big
+            image: gcr.io/dataworkbench-io/iati-data-validator:0.9.7
+            args:
+              - xml-check-big
+            volumeMounts:
+            - mountPath: /workspace
+              name: workspace
+            resources:
+              requests:
+                memory: "1Gi"
+                cpu: "700m"
+              limits:
+                memory: "3Gi"
+          restartPolicy: OnFailure
+          volumes:
+          - name: workspace
+            hostPath:
+              path: /home/workspace
+              type: DirectoryOrCreate
 ---
-  apiVersion: batch/v1beta1
-  kind: CronJob
-  metadata:
-    name: iati-data-json
-    labels:
-      env: develop
-      tier: backend
-      focus: json
-  spec:
-    schedule: "4/10 * * * *"
-    concurrencyPolicy: Forbid
-    jobTemplate:
-      spec:
-        template:
-          spec:
-            nodeSelector:
-              focus: validation
-            containers:
-            - name: iati-data-validator-json
-              image: gcr.io/dataworkbench-io/iati-data-validator:0.2.0
-              args:
-                - json
-              volumeMounts:
-              - mountPath: /workspace
-                name: workspace
-              resources:
-                requests:
-                  memory: "512Mi"
-                  cpu: "200m"
-                limits:
-                  memory: "3Gi"
-            restartPolicy: Never
-            volumes:
-            - name: workspace
-              hostPath:
-                path: /home/workspace
-                type: DirectoryOrCreate
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: iati-data-xml-check
+  labels:
+    env: develop
+    tier: backend
+    focus: validation
+spec:
+  schedule: "7/15 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            focus: validation
+          containers:
+          - name: iati-data-xml-check
+            image: gcr.io/dataworkbench-io/iati-data-validator:0.9.7
+            args:
+              - xml-check
+            volumeMounts:
+            - mountPath: /workspace
+              name: workspace
+            resources:
+              requests:
+                memory: "1Gi"
+                cpu: "700m"
+              limits:
+                memory: "3Gi"
+          restartPolicy: OnFailure
+          volumes:
+          - name: workspace
+            hostPath:
+              path: /home/workspace
+              type: DirectoryOrCreate
