@@ -18,9 +18,22 @@ spec:
         volumeMounts:
         - mountPath: /workspace
           name: workspace
+        - mountPath: /snapshot
+          name: iati-snapshot
+        - mountPath: /urls
+          name: iati-urls
       restartPolicy: Never
       volumes:
       - name: workspace
         hostPath:
           path: /home/workspace
           type: DirectoryOrCreate
+      - name: iati-snapshot
+        hostPath:
+          path: /home/snapshot
+          type: DirectoryOrCreate
+      - name: iati-urls
+        hostPath:
+          path: /home/urls
+          type: DirectoryOrCreate
+          
