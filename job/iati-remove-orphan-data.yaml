@@ -10,7 +10,7 @@ spec:
   template:
     spec:
       nodeSelector:
-        focus: validation
+        focus: application
       containers:
       - name: iati-kitchen
         image: gcr.io/dataworkbench-io/iati-kitchen:0.3.17

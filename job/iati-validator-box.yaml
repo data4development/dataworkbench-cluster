@@ -11,7 +11,7 @@ spec:
         app: iati-validator-box
     spec:
       nodeSelector:
-        focus: validation
+        focus: application
       containers:
       - name: iati-validator-box
         image: gcr.io/dataworkbench-io/iati-data-validator:0.9.7-webhook
