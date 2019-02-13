@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: iati-data-validator-loop
+  labels:
+    app: iati-data-validator-loop
+spec:
+  replicas: 6
+  template:
+    metadata:
+      labels:
+        app: iati-data-validator-loop
+        tier: backend
+    spec:
+      containers:
+      - name: iati-data-validator-loop
+        image: gcr.io/dataworkbench-io/iati-data-validator:0.9.14-loop1
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1Gi"
+          limits:
+            memory: "3Gi"
+        env:
+          - name: PROJECT_ID
+            value: dataworkbench-io
+        volumeMounts:
+        - mountPath: /workspace
+          name: workspace
+      volumes:
+      - name: workspace
+        emptyDir: {}
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: iati-data-validator
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: iati-data-validator-loop
+  minReplicas: 3
+  maxReplicas: 12
+  targetCPUUtilizationPercentage: 60
