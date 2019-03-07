@@ -5,6 +5,8 @@ metadata:
   labels:
     app: iati-data-validator-webhook
     tier: backend
+  annotations:
+    beta.cloud.google.com/backend-config: '{"ports": {"80":"dwb-backendconfig-longtimeout"}}'
 spec:
   type: NodePort
   ports:
