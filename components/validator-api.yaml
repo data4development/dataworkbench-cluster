@@ -32,7 +32,7 @@ spec:
         focus: application
       containers:
       - name: validator-api-app
-        image: gcr.io/dataworkbench-io/validator-api:0.4.0
+        image: gcr.io/dataworkbench-io/validator-api:0.4.4
         imagePullPolicy: Always
         ports:
         - name: api-server

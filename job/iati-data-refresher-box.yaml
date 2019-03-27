@@ -1,0 +1,51 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: iati-data-refresher-box
+  labels:
+    app: iati-data-refresher-box
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: iati-data-refresher-box
+    spec:
+      containers:
+      - name: iati-data-refresher-box
+        image: gcr.io/dataworkbench-io/iati-data-refresher:0.7.3-hotfix1
+        imagePullPolicy: Always
+        command:
+          - "/bin/sleep"
+          - "2h"
+        volumeMounts:
+        - mountPath: /home/snapshot
+          name: iati-snapshot
+        - mountPath: /home/urls
+          name: iati-urls
+        - mountPath: /home/workspace
+          name: workspace
+        ports:
+        - name: webhook-server
+          containerPort: 9000
+        resources:
+          requests:
+            memory: "1Gi"
+          limits:
+            memory: "3Gi"
+        env:
+          - name: PROJECT_ID
+            value: dataworkbench-io
+      volumes:
+      - name: iati-snapshot
+        hostPath:
+          path: /home/snapshot
+          type: DirectoryOrCreate
+      - name: iati-urls
+        hostPath:
+          path: /home/urls
+          type: DirectoryOrCreate
+      - name: workspace
+        hostPath:
+          path: /home/workspace
+          type: DirectoryOrCreate

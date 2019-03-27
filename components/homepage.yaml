@@ -32,7 +32,7 @@ spec:
         focus: application
       containers:
       - name: homepage
-        image: gcr.io/dataworkbench-io/homepage:0.2.0
+        image: gcr.io/dataworkbench-io/homepage:0.3.3
         imagePullPolicy: Always
         ports:
         - name: front-end

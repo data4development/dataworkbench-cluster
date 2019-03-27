@@ -28,11 +28,9 @@ spec:
         app: validator-api-public
         tier: frontend
     spec:
-      nodeSelector:
-        focus: application
       containers:
       - name: validator-api-public-app
-        image: gcr.io/dataworkbench-io/validator-api-public:0.4.1-public3
+        image: gcr.io/dataworkbench-io/validator-api:0.4.5-public
         imagePullPolicy: Always
         ports:
         - name: api-public

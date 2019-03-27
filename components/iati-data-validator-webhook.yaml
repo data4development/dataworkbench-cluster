@@ -24,7 +24,6 @@ metadata:
   labels:
     app: iati-data-validator-webhook
 spec:
-  replicas: 3
   template:
     metadata:
       labels:
@@ -69,6 +68,6 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: iati-data-validator-webhook
-  minReplicas: 3
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 50
+  minReplicas: 6
+  maxReplicas: 12
+  targetCPUUtilizationPercentage: 60

@@ -5,7 +5,6 @@ metadata:
   labels:
     app: iati-data-validator-loop
 spec:
-  replicas: 6
   template:
     metadata:
       labels:
@@ -16,7 +15,7 @@ spec:
         batch: enabled
       containers:
       - name: iati-data-validator-loop
-        image: gcr.io/dataworkbench-io/iati-data-validator:0.9.14-loop1
+        image: gcr.io/dataworkbench-io/iati-data-validator:0.9.20
         imagePullPolicy: Always
         resources:
           requests:
@@ -44,5 +43,5 @@ spec:
     kind: Deployment
     name: iati-data-validator-loop
   minReplicas: 3
-  maxReplicas: 12
+  maxReplicas: 44
   targetCPUUtilizationPercentage: 60
