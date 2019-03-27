@@ -33,7 +33,7 @@ spec:
         focus: application
       containers:
       - name: iati-data-validator-webhook
-        image: gcr.io/dataworkbench-io/iati-data-validator-webhook:0.9.4-webhook3
+        image: gcr.io/dataworkbench-io/iati-data-validator:0.9.9-webhook
         imagePullPolicy: Always
         ports:
         - name: webhook-server
@@ -50,4 +50,9 @@ spec:
           httpGet:
             path: /process/get-feedback
             port: 9000
-      
+        volumeMounts:
+        - mountPath: /workspace
+          name: workspace
+      volumes:
+      - name: workspace
+        emptyDir: {}
