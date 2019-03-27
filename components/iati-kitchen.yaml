@@ -13,8 +13,6 @@ spec:
     spec:
       template:
         spec:
-          nodeSelector:
-            focus: validation
           containers:
           - name: iati-kitchen
             image: gcr.io/dataworkbench-io/iati-kitchen:0.3.17
@@ -49,8 +47,6 @@ spec:
       spec:
         template:
           spec:
-            nodeSelector:
-              focus: validation
             containers:
             - name: iati-kitchen
               image: gcr.io/dataworkbench-io/iati-kitchen:0.3.17

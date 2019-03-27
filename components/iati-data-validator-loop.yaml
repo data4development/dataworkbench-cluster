@@ -12,6 +12,8 @@ spec:
         app: iati-data-validator-loop
         tier: backend
     spec:
+      nodeSelector:
+        batch: enabled
       containers:
       - name: iati-data-validator-loop
         image: gcr.io/dataworkbench-io/iati-data-validator:0.9.14-loop1
