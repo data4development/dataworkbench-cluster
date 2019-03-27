@@ -33,7 +33,9 @@ spec:
     spec:
       containers:
       - name: iati-data-validator-webhook
-        image: gcr.io/dataworkbench-io/iati-data-validator:0.9.9-webhook
+        image: gcr.io/dataworkbench-io/iati-data-validator:0.9.20
+        command: ["/home/webhook"]
+        args: ["-urlprefix=process", "-hooks=/home/webhook-scripts/hooks.json", "-hotreload", "-verbose"]
         imagePullPolicy: Always
         ports:
         - name: webhook-server
