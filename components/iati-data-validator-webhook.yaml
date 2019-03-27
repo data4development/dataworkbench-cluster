@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: iati-data-validator-webhook
+  labels:
+    app: iati-data-validator-webhook
+    tier: backend
+spec:
+  type: NodePort
+  ports:
+  - name: svc-webhook
+    port: 80
+    targetPort: webhook-server
+  selector:
+    app: iati-data-validator-webhook
+    tier: backend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: iati-data-validator-webhook
+  labels:
+    app: iati-data-validator-webhook
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: iati-data-validator-webhook
+        tier: backend
+    spec:
+      nodeSelector:
+        focus: application
+      containers:
+      - name: iati-data-validator-webhook
+        image: gcr.io/dataworkbench-io/iati-data-validator-webhook:0.9.4-webhook3
+        imagePullPolicy: Always
+        ports:
+        - name: webhook-server
+          containerPort: 9000
+        resources:
+          requests:
+            memory: "1Gi"
+          limits:
+            memory: "3Gi"        
+        env:
+          - name: PROJECT_ID
+            value: dataworkbench-io
+        readinessProbe:
+          httpGet:
+            path: /process/get-feedback
+            port: 9000
+      

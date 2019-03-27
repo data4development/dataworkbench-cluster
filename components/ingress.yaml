@@ -38,3 +38,12 @@ spec:
           backend:
             serviceName: validator-api-public
             servicePort: 80
+        - path: /process
+          backend:
+            serviceName: iati-data-validator-webhook
+            servicePort: 80
+        - path: /process/*
+          backend:
+            serviceName: iati-data-validator-webhook
+            servicePort: 80
+            
