@@ -86,4 +86,8 @@ spec:
               image: gcr.io/dataworkbench-io/iati-kitchen:0.3.17
               args:
                 - "-file=refresh_from_registry.kjb"
+              resources:
+                requests:
+                  memory: "512Mi"
+                  cpu: "200m"
             restartPolicy: Never
