@@ -29,8 +29,6 @@ spec:
         app: iati-data-validator-webhook
         tier: backend
     spec:
-      nodeSelector:
-        validation: webhook
       containers:
       - name: iati-data-validator-webhook
         image: gcr.io/dataworkbench-io/iati-data-validator:0.9.9-webhook
@@ -41,6 +39,8 @@ spec:
         resources:
           requests:
             memory: "1Gi"
+          limits:
+            memory: "3Gi"
         env:
           - name: PROJECT_ID
             value: dataworkbench-io
