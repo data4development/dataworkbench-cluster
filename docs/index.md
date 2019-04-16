@@ -30,3 +30,10 @@ The cluster consists of two types of nodes.
 In addition, there still is a separate server running the IATI Data Refresher to update the IATI snapshot. The data is then pushed to a Source Repository on the Google Cloud Platform.
 
 ![](./deployment-overview.drawio.svg)
+
+## Cluster configuration
+
+The cluster setup is specified Kubernetes' declarative configuation in YAML files. We use [kustomize with a branches layout](https://kubectl.docs.kubernetes.io/pages/app_composition_and_deployment/structure_branches.html): this repository specifies different environments as branches for `testing`, `staging` and `production`. It is possible to add additional specialisation for different cluster systems. The default is heavily written towards a Google Kubernetes Engine cluster.
+
+![](kustomize-flow.drawio.svg)
+
