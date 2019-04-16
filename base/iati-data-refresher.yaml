@@ -16,30 +16,30 @@ spec:
           containers:
           - name: iati-data-update
             image: gcr.io/dataworkbench-io/iati-data-refresher:0.7.3-hotfix1
-                volumeMounts:
-                - mountPath: /home/snapshot
-                  name: iati-snapshot
-                - mountPath: /home/urls
-                  name: iati-urls
-                - mountPath: /home/workspace
-                  name: workspace
-                resources:
-                  requests:
-                    memory: "512Mi"
-                    cpu: "200m"
-                  limits:
-                    memory: "1Gi"
-              restartPolicy: OnFailure
-              volumes:
-              - name: iati-snapshot
-                hostPath:
-                  path: /home/snapshot
-                  type: DirectoryOrCreate
-              - name: iati-urls
-                hostPath:
-                  path: /home/urls
-                  type: DirectoryOrCreate
-              - name: workspace
-                hostPath:
-                  path: /home/workspace
-                  type: DirectoryOrCreate
+            volumeMounts:
+            - mountPath: /home/snapshot
+              name: iati-snapshot
+            - mountPath: /home/urls
+              name: iati-urls
+            - mountPath: /home/workspace
+              name: workspace
+            resources:
+              requests:
+                memory: "512Mi"
+                cpu: "200m"
+              limits:
+                memory: "1Gi"
+          restartPolicy: OnFailure
+          volumes:
+          - name: iati-snapshot
+            hostPath:
+              path: /home/snapshot
+              type: DirectoryOrCreate
+          - name: iati-urls
+            hostPath:
+              path: /home/urls
+              type: DirectoryOrCreate
+          - name: workspace
+            hostPath:
+              path: /home/workspace
+              type: DirectoryOrCreate
