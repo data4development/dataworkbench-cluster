@@ -43,5 +43,5 @@ spec:
     kind: Deployment
     name: iati-data-validator-loop
   minReplicas: 3
-  maxReplicas: 44
-  targetCPUUtilizationPercentage: 60
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 80
