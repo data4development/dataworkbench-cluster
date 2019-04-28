@@ -1,0 +1,6 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dataworkbench-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: your-static-ip-name

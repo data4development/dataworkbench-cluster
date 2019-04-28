@@ -1,9 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: validator-ingress
-  annotations:
-    kubernetes.io/ingress.global-static-ip-name: dev1-dataworkbench-io
+  name: dataworkbench-ingress
 spec:
   backend:
     serviceName: homepage
