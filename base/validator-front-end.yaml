@@ -29,7 +29,7 @@ spec:
         tier: frontend
     spec:
       nodeSelector:
-        focus: application
+        node: core
       containers:
       - name: validator-front-end
         image: gcr.io/dataworkbench-io/validator-front-end:0.8.7

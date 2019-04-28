@@ -39,7 +39,7 @@ spec:
         environment: development
     spec:
       nodeSelector:
-        focus: application
+        node: core
       terminationGracePeriodSeconds: 10
       containers:
         - name: mongo

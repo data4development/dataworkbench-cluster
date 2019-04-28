@@ -11,7 +11,7 @@ spec:
         app: gsutilbox
     spec:
       nodeSelector:
-        focus: application
+        node: core
       containers:
       - name: gsutilbox
         image: gcr.io/dataworkbench-io/iati-data-refresher:0.4.12
