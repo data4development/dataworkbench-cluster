@@ -1,0 +1,69 @@
+{
+  "cluster": {
+    "name": "cluster-1",
+    "masterAuth": {
+      "username": "admin",
+      "clientCertificateConfig": {"issueClientCertificate": true}
+    },
+    "loggingService": "logging.googleapis.com/kubernetes",
+    "monitoringService": "monitoring.googleapis.com/kubernetes",
+    "network": "projects/d4d-dataworkbench/global/networks/default",
+    "addonsConfig": {
+      "httpLoadBalancing": {},
+      "horizontalPodAutoscaling": {},
+      "kubernetesDashboard": {"disabled": true},
+      "istioConfig": {"disabled": true}
+    },
+    "subnetwork": "projects/d4d-dataworkbench/regions/europe-west4/subnetworks/default",
+    "nodePools": [
+      {
+        "name": "default-pool",
+        "config": {
+          "machineType": "n1-standard-1",
+          "diskSizeGb": 100,
+          "oauthScopes": ["https://www.googleapis.com/auth/cloud-platform"],
+          "imageType": "COS",
+          "labels": {"node": "core"},
+          "diskType": "pd-standard"
+        },
+        "initialNodeCount": 3,
+        "autoscaling": {},
+        "management": {
+          "autoUpgrade": true,
+          "autoRepair": true
+        },
+        "version": "1.11.8-gke.6"
+      },
+      {
+        "name": "pool-1",
+        "config": {
+          "machineType": "n1-standard-2",
+          "diskSizeGb": 100,
+          "oauthScopes": ["https://www.googleapis.com/auth/cloud-platform"],
+          "imageType": "COS",
+          "labels": {"node": "preemptible"},
+          "preemptible": true,
+          "diskType": "pd-standard"
+        },
+        "initialNodeCount": 1,
+        "autoscaling": {
+          "enabled": true,
+          "minNodeCount": 1,
+          "maxNodeCount": 15
+        },
+        "management": {
+          "autoUpgrade": true,
+          "autoRepair": true
+        },
+        "version": "1.11.8-gke.6"
+      }
+    ],
+    "networkPolicy": {},
+    "ipAllocationPolicy": {},
+    "masterAuthorizedNetworksConfig": {},
+    "privateClusterConfig": {},
+    "databaseEncryption": {"state": "DECRYPTED"},
+    "initialClusterVersion": "1.11.8-gke.6",
+    "location": "europe-west4-a"
+  }
+}

@@ -1,0 +1,40 @@
+Create the cluster via the command line:
+
+gcloud beta container --project "d4d-dataworkbench" clusters create "standard-cluster-1" \
+  --zone "europe-west4-a" \
+  --cluster-version "1.11.8-gke.6" \
+  --machine-type "n1-standard-1" \
+  --image-type "COS" \
+  --disk-type "pd-standard" \
+  --disk-size "100" \
+  --node-labels node=core \
+  --scopes "https://www.googleapis.com/auth/cloud-platform" \
+  --num-nodes "3" \
+  --enable-stackdriver-kubernetes \
+  --no-enable-ip-alias \
+  --network "projects/d4d-dataworkbench/global/networks/default" \
+  --subnetwork "projects/d4d-dataworkbench/regions/europe-west4/subnetworks/default" \
+  --addons HorizontalPodAutoscaling,HttpLoadBalancing \
+  --enable-autoupgrade \
+  --enable-autorepair && \
+gcloud beta container --project "d4d-dataworkbench" node-pools create "pool-1" \
+  --cluster "standard-cluster-1" \
+  --zone "europe-west4-a" \
+  --node-version "1.11.8-gke.6" \
+  --machine-type "n1-standard-2" \
+  --image-type "COS" \
+  --disk-type "pd-standard" \
+  --disk-size "100" \
+  --node-labels node=preemptible \
+  --scopes "https://www.googleapis.com/auth/cloud-platform" \
+  --preemptible \
+  --num-nodes "1" \
+  --enable-autoscaling \
+  --min-nodes "1" \
+  --max-nodes "15" \
+  --enable-autoupgrade \
+  --enable-autorepair
+
+Or create it via the API:
+
+POST https://container.googleapis.com/v1beta1/projects/d4d-dataworkbench/zones/europe-west4-a/clusters (cloud-cluster-create.json)
