@@ -20,7 +20,17 @@ TODO: create buckets
 
 ### VPC network
 
-Under "External IP addresses", reserve a static IP address to be used by the ingress later on.Give it a name like `stage-ip4-dataworkbench-io` that is used in the Ingress specification using:
+Under "External IP addresses", reserve a global static IP address to be used by the ingress later on. Give it a name like `stage-ip4-dataworkbench-io`:
+
+```bash
+gcloud compute addresses create stage-ip4-dataworkbench-io` --global
+```
+
+{:.warning}
+
+Make sure to use the `--global` flag, otherwise the ingress will not bind to it.
+
+The address can now be used in the Ingress specification:
 
 ```yaml
 apiVersion: extensions/v1beta1
