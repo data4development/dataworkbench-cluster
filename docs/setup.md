@@ -65,6 +65,10 @@ The **access scopes setting** of a node pool cannot be changed after the pool is
 
 Once the cluster is created, it is possible to connect to it with the gcloud shell.
 
+### IAM & admin
+
+There is one component in the Mongo configuration to add a cluster role binding authorization. For this, the person deploying the configuration needs to have sufficient privileges in the project, for instance by being the owner of the project.
+
 ### Namespaces
 
 The respective testing, staging and production branches specify their namespace via kustomize.
