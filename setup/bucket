@@ -1,0 +1,5 @@
+gsutil mb -c regional -l europe-west4 gs://dataworkbench-iati-staging-d4d-dataworkbench-io
+gsutil mb -c regional -l europe-west4 gs://dataworkbench-iatifeedback-staging-d4d-dataworkbench-io
+gsutil mb -c regional -l europe-west4 gs://dataworkbench-json-staging-d4d-dataworkbench-io
+gsutil mb -c regional -l europe-west4 gs://dataworkbench-svrl-staging-d4d-dataworkbench-io
+gsutil mb -c regional -l europe-west4 gs://dataworkbench-test-staging-d4d-dataworkbench-io

@@ -16,7 +16,11 @@ Tag container images with the appropriate location name. Push the images to the 
 
 ### Storage
 
-TODO: create buckets
+Create the Google Storage buckets for each environment.
+
+{:.warning}
+
+TODO: Bucket names have to be globally unique, which poses problems working with different environments: the service(s) using the Storage backend will need to be configured to use the appropriate buckets.
 
 ### VPC network
 
@@ -68,6 +72,8 @@ Once the cluster is created, it is possible to connect to it with the gcloud she
 ### IAM & admin
 
 There is one component in the Mongo configuration to add a cluster role binding authorization. For this, the person deploying the configuration needs to have sufficient privileges in the project, for instance by being the owner of the project.
+
+TODO for API: for local testing with remote storage buckets, you need a key file in JSON to access them. This key file can be obtained via Service Accounts.
 
 ### Namespaces
 
