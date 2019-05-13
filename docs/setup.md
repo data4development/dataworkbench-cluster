@@ -22,6 +22,16 @@ Create the Google Storage buckets for each environment.
 
 TODO: Bucket names have to be globally unique, which poses problems working with different environments: the service(s) using the Storage backend will need to be configured to use the appropriate buckets.
 
+### Postgresql
+
+Create a Postgresql instance, and add a Private IP as a connection.
+
+It's possible to use [the proxy application](https://cloud.google.com/sql/docs/postgres/connect-external-app#proxy) to connect with the Postgresql instance from a developer machine. Start the proxy and use for instance psql to connect via the proxy. Java applications (such as Eclipse or DBeaver) work with the TCP-based version of the proxy.
+
+```bash
+./cloud_sql_proxy -instances=d4d-dataworkbench:europe-west4:d4d-dataworkbench-1=tcp:19432 &
+```
+
 ### VPC network
 
 Under "External IP addresses", reserve a global static IP address to be used by the ingress later on. Give it a name like `stage-ip4-dataworkbench-io`:
