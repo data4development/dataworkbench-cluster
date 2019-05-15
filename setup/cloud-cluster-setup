@@ -1,7 +1,14 @@
-Create the cluster via the command line:
+#!/bin/bash
 
-gcloud beta container --project "d4d-dataworkbench" clusters create "standard-cluster-1" \
-  --zone "europe-west4-a" \
+GCP_PROJECT=d4d-dataworkbench
+GCP_CLUSTER=cluster-1
+GCP_ZONE=europe-west4-a
+GCP_NODEPOOL1=pool-1
+
+# Create the cluster via the command line:
+
+gcloud beta container --project "$GCP_PROJECT" clusters create "$GCP_CLUSTER" \
+  --zone "$GCP_ZONE" \
   --cluster-version "1.11.8-gke.6" \
   --machine-type "n1-standard-1" \
   --image-type "COS" \
@@ -16,10 +23,11 @@ gcloud beta container --project "d4d-dataworkbench" clusters create "standard-cl
   --subnetwork "projects/d4d-dataworkbench/regions/europe-west4/subnetworks/default" \
   --addons HorizontalPodAutoscaling,HttpLoadBalancing \
   --enable-autoupgrade \
-  --enable-autorepair && \
-gcloud beta container --project "d4d-dataworkbench" node-pools create "pool-1" \
-  --cluster "standard-cluster-1" \
-  --zone "europe-west4-a" \
+  --enable-autorepair
+  
+gcloud beta container --project "$GCP_PROJECT" node-pools create "$GCP_NODEPOOL1" \
+  --cluster "$GCP_CLUSTER" \
+  --zone "$GCP_ZONE" \
   --node-version "1.11.8-gke.6" \
   --machine-type "n1-standard-2" \
   --image-type "COS" \
