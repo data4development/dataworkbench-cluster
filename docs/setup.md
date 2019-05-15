@@ -71,6 +71,7 @@ Google organises its resources in regions, each with multiple zones. Typically, 
   * Also change the access scopes to "Allow full access to all Cloud APIs".
   * Add a label `node = preemptible`
 * Open the "Availability, networking, ..." settings.
+  * Enable VPC-native
   * Make sure HTTP load balancing is enabled, to be able to use the Ingress component.
 
 {:.warning}

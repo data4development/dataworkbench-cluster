@@ -9,7 +9,8 @@ GCP_NODEPOOL1=pool-1
 
 gcloud beta container --project "$GCP_PROJECT" clusters create "$GCP_CLUSTER" \
   --zone "$GCP_ZONE" \
-  --cluster-version "1.11.8-gke.6" \
+  --no-enable-basic-auth \ 
+  --cluster-version "1.12.7-gke.10" \ 
   --machine-type "n1-standard-1" \
   --image-type "COS" \
   --disk-type "pd-standard" \
@@ -17,8 +18,8 @@ gcloud beta container --project "$GCP_PROJECT" clusters create "$GCP_CLUSTER" \
   --node-labels node=core \
   --scopes "https://www.googleapis.com/auth/cloud-platform" \
   --num-nodes "3" \
-  --enable-stackdriver-kubernetes \
-  --no-enable-ip-alias \
+  --enable-cloud-logging \
+  --enable-ip-alias \
   --network "projects/d4d-dataworkbench/global/networks/default" \
   --subnetwork "projects/d4d-dataworkbench/regions/europe-west4/subnetworks/default" \
   --addons HorizontalPodAutoscaling,HttpLoadBalancing \
@@ -28,7 +29,7 @@ gcloud beta container --project "$GCP_PROJECT" clusters create "$GCP_CLUSTER" \
 gcloud beta container --project "$GCP_PROJECT" node-pools create "$GCP_NODEPOOL1" \
   --cluster "$GCP_CLUSTER" \
   --zone "$GCP_ZONE" \
-  --node-version "1.11.8-gke.6" \
+  --node-version "1.12.7-gke.10" \ 
   --machine-type "n1-standard-2" \
   --image-type "COS" \
   --disk-type "pd-standard" \
@@ -43,6 +44,6 @@ gcloud beta container --project "$GCP_PROJECT" node-pools create "$GCP_NODEPOOL1
   --enable-autoupgrade \
   --enable-autorepair
 
-Or create it via the API:
-
-POST https://container.googleapis.com/v1beta1/projects/d4d-dataworkbench/zones/europe-west4-a/clusters (cloud-cluster-create.json)
+# Or create it via the API:
+#
+# POST https://container.googleapis.com/v1beta1/projects/d4d-dataworkbench/zones/europe-west4-a/clusters (cloud-cluster-create.json)

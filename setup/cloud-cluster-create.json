@@ -2,11 +2,10 @@
   "cluster": {
     "name": "cluster-1",
     "masterAuth": {
-      "username": "admin",
-      "clientCertificateConfig": {"issueClientCertificate": true}
+      "clientCertificateConfig": {}
     },
-    "loggingService": "logging.googleapis.com/kubernetes",
-    "monitoringService": "monitoring.googleapis.com/kubernetes",
+    "loggingService": "logging.googleapis.com",
+    "monitoringService": "monitoring.googleapis.com",
     "network": "projects/d4d-dataworkbench/global/networks/default",
     "addonsConfig": {
       "httpLoadBalancing": {},
@@ -22,6 +21,7 @@
           "machineType": "n1-standard-1",
           "diskSizeGb": 100,
           "oauthScopes": ["https://www.googleapis.com/auth/cloud-platform"],
+          "metadata": {"disable-legacy-endpoints": "true"},
           "imageType": "COS",
           "labels": {"node": "core"},
           "diskType": "pd-standard"
@@ -32,7 +32,7 @@
           "autoUpgrade": true,
           "autoRepair": true
         },
-        "version": "1.11.8-gke.6"
+        "version": "1.12.7-gke.10"
       },
       {
         "name": "pool-1",
@@ -40,6 +40,7 @@
           "machineType": "n1-standard-2",
           "diskSizeGb": 100,
           "oauthScopes": ["https://www.googleapis.com/auth/cloud-platform"],
+          "metadata": {"disable-legacy-endpoints": "true"},
           "imageType": "COS",
           "labels": {"node": "preemptible"},
           "preemptible": true,
@@ -55,15 +56,16 @@
           "autoUpgrade": true,
           "autoRepair": true
         },
-        "version": "1.11.8-gke.6"
+        "version": "1.12.7-gke.10"
       }
     ],
     "networkPolicy": {},
-    "ipAllocationPolicy": {},
+    "ipAllocationPolicy": {"useIpAliases": true},
     "masterAuthorizedNetworksConfig": {},
+    "defaultMaxPodsConstraint": {"maxPodsPerNode": "110"},
     "privateClusterConfig": {},
     "databaseEncryption": {"state": "DECRYPTED"},
-    "initialClusterVersion": "1.11.8-gke.6",
+    "initialClusterVersion": "1.12.7-gke.10",
     "location": "europe-west4-a"
   }
 }
