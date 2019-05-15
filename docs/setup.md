@@ -24,13 +24,15 @@ TODO: Bucket names have to be globally unique, which poses problems working with
 
 ### Postgresql
 
-Create a Postgresql instance, and add a Private IP as a connection.
+Create a Postgresql instance, and add a Private IP as a connection. The IP address and the username and password of a Postgres user are required in the configuration of the cluster.
 
 It's possible to use [the proxy application](https://cloud.google.com/sql/docs/postgres/connect-external-app#proxy) to connect with the Postgresql instance from a developer machine. Start the proxy and use for instance psql to connect via the proxy. Java applications (such as Eclipse or DBeaver) work with the TCP-based version of the proxy.
 
 ```bash
 ./cloud_sql_proxy -instances=d4d-dataworkbench:europe-west4:d4d-dataworkbench-1=tcp:19432 &
 ```
+
+The setup folder has the DDL to set up the Pentaho logs database in a database of choice.
 
 ### VPC network
 
