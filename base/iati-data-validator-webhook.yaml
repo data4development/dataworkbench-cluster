@@ -44,6 +44,7 @@ spec:
             memory: "1Gi"
           limits:
             memory: "3Gi"
+            cpu: 300m
         env:
           - name: PROJECT_ID
             value: dataworkbench-io
@@ -68,6 +69,6 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: iati-data-validator-webhook
-  minReplicas: 6
+  minReplicas: 3
   maxReplicas: 12
   targetCPUUtilizationPercentage: 60
