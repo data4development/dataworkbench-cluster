@@ -11,4 +11,7 @@ defaults:
     values:
       layout: "default"
 
+plugins:
+  - jekyll-remote-theme 
+
 remote_theme: data4development/dataworkbench-jekyll-theme
