@@ -32,7 +32,7 @@ spec:
         node: core
       containers:
       - name: homepage
-        image: gcr.io/dataworkbench-io/homepage:0.3.4
+        image: gcr.io/dataworkbench-io/homepage:0.3.6
         imagePullPolicy: Always
         ports:
         - name: front-end
