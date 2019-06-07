@@ -32,7 +32,7 @@ spec:
         node: core
       containers:
       - name: validator-api-app
-        image: gcr.io/dataworkbench-io/validator-api:0.4.4
+        image: gcr.io/dataworkbench-io/validator-api:0.5.3
         imagePullPolicy: Always
         ports:
         - name: api-server

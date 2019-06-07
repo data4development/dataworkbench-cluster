@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: iati-data-validator-loop-testfiles
+  labels:
+    app: iati-data-validator-loop-testfiles
+spec:
+  template:
+    metadata:
+      labels:
+        app: iati-data-validator-loop-testfiles
+        tier: backend
+    spec:
+      nodeSelector:
+        node: preemptible
+      containers:
+      - name: iati-data-validator-loop-testfiles
+        image: gcr.io/dataworkbench-io/iati-data-validator:0.11.0
+        command: ["/home/loop-unprocessed-testfiles"]
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1Gi"
+          limits:
+            memory: "2Gi"
+            cpu: 300m
+        volumeMounts:
+        - mountPath: /workspace
+          name: workspace
+      volumes:
+      - name: workspace
+        emptyDir: {}
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: iati-data-validator-testfiles
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: iati-data-validator-loop-testfiles
+  minReplicas: 1
+  maxReplicas: 1
+  targetCPUUtilizationPercentage: 80
