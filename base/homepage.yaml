@@ -21,6 +21,7 @@ metadata:
   labels:
     app: homepage
 spec:
+  # override in deploy/scaling.yaml
   replicas: 1
   template:
     metadata:

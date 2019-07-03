@@ -6,8 +6,11 @@ bases:
 
 patchesStrategicMerge:
 - ingress-ip-name.yaml
+- scaling-patches.yaml
+- scheduling.yaml
 
 resources:
 - namespace.yaml
+- scaling-hpa.yaml
 
 namespace: default

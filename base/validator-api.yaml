@@ -21,7 +21,8 @@ metadata:
   labels:
     app: validator-api
 spec:
-  replicas: 2
+  # override in deploy/scaling.yaml
+  replicas: 1
   template:
     metadata:
       labels:

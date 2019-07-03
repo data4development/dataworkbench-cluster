@@ -7,6 +7,7 @@ metadata:
     tier: backend
     focus: sync
 spec:
+  # override in deploy/scheduling.yaml
   schedule: "23 * * * *"
   concurrencyPolicy: Forbid
   jobTemplate:
@@ -32,62 +33,64 @@ spec:
               path: /home/workspace
               type: DirectoryOrCreate
 ---
-  apiVersion: batch/v1beta1
-  kind: CronJob
-  metadata:
-    name: iati-remove-orphan-data
-    labels:
-      env: develop
-      tier: backend
-      focus: sync
-  spec:
-    schedule: "53 * * * *"
-    concurrencyPolicy: Forbid
-    jobTemplate:
-      spec:
-        template:
-          spec:
-            containers:
-            - name: iati-kitchen
-              image: gcr.io/dataworkbench-io/iati-kitchen:0.3.17
-              args:
-                - "-file=remove_orphan_data.kjb"
-              resources:
-                requests:
-                  memory: "512Mi"
-                  cpu: "200m"
-              volumeMounts:
-              - mountPath: /home/workspace
-                name: workspace
-            restartPolicy: Never
-            volumes:
-            - name: workspace
-              hostPath:
-                path: /home/workspace
-                type: DirectoryOrCreate
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: iati-remove-orphan-data
+  labels:
+    env: develop
+    tier: backend
+    focus: sync
+spec:
+  # override in deploy/scheduling.yaml
+  schedule: "53 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: iati-kitchen
+            image: gcr.io/dataworkbench-io/iati-kitchen:0.3.17
+            args:
+              - "-file=remove_orphan_data.kjb"
+            resources:
+              requests:
+                memory: "512Mi"
+                cpu: "200m"
+            volumeMounts:
+            - mountPath: /home/workspace
+              name: workspace
+          restartPolicy: Never
+          volumes:
+          - name: workspace
+            hostPath:
+              path: /home/workspace
+              type: DirectoryOrCreate
 ---
-  apiVersion: batch/v1beta1
-  kind: CronJob
-  metadata:
-    name: iati-refresh-from-registry
-    labels:
-      env: develop
-      tier: backend
-      focus: sync
-  spec:
-    schedule: "30 */3 * * *"
-    concurrencyPolicy: Forbid
-    jobTemplate:
-      spec:
-        template:
-          spec:
-            containers:
-            - name: iati-kitchen
-              image: gcr.io/dataworkbench-io/iati-kitchen:0.3.17
-              args:
-                - "-file=refresh_from_registry.kjb"
-              resources:
-                requests:
-                  memory: "512Mi"
-                  cpu: "200m"
-            restartPolicy: Never
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: iati-refresh-from-registry
+  labels:
+    env: develop
+    tier: backend
+    focus: sync
+spec:
+  # override in deploy/scheduling.yaml
+  schedule: "30 */3 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: iati-kitchen
+            image: gcr.io/dataworkbench-io/iati-kitchen:0.3.17
+            args:
+              - "-file=refresh_from_registry.kjb"
+            resources:
+              requests:
+                memory: "512Mi"
+                cpu: "200m"
+          restartPolicy: Never

@@ -32,17 +32,3 @@ spec:
       volumes:
       - name: workspace
         emptyDir: {}
----
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: iati-data-validator
-  namespace: default
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: iati-data-validator-loop
-  minReplicas: 3
-  maxReplicas: 6
-  targetCPUUtilizationPercentage: 80
