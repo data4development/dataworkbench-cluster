@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: validator-api-public-app
-        image: gcr.io/dataworkbench-io/validator-api:0.5.3-public
+        image: gcr.io/dataworkbench-io/validator-api:0.5.7-public
         imagePullPolicy: Always
         ports:
         - name: api-public

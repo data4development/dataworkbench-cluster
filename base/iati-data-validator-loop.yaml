@@ -15,13 +15,13 @@ spec:
         node: preemptible
       containers:
       - name: iati-data-validator-loop
-        image: gcr.io/dataworkbench-io/iati-data-validator:0.9.20
+        image: gcr.io/dataworkbench-io/iati-data-validator:0.11.5
         imagePullPolicy: Always
         resources:
           requests:
             memory: "1Gi"
           limits:
-            memory: "3Gi"
+            memory: "2Gi"
             cpu: 300m
         env:
           - name: PROJECT_ID
