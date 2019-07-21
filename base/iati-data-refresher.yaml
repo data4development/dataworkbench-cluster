@@ -17,6 +17,9 @@ spec:
           containers:
           - name: iati-data-update
             image: gcr.io/dataworkbench-io/iati-data-refresher:0.7.3-hotfix1
+            envFrom:
+            - configMapRef:
+              name: iati-data-validator-config
             volumeMounts:
             - mountPath: /home/snapshot
               name: iati-snapshot

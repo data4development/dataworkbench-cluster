@@ -38,6 +38,6 @@ spec:
         ports:
         - name: api-server
           containerPort: 8080
-        env:
-          - name: PROJECT_ID
-            value: dataworkbench-io
+        envFrom:
+        - configMapRef:
+          name: validator-api-config

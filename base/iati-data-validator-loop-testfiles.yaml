@@ -24,6 +24,9 @@ spec:
           limits:
             memory: "2Gi"
             cpu: 300m
+        envFrom:
+        - configMapRef:
+          name: iati-data-validator-config
         volumeMounts:
         - mountPath: /workspace
           name: workspace

@@ -14,3 +14,41 @@ resources:
 - scaling-hpa.yaml
 
 namespace: default
+
+configMapGenerator:
+- name: homepage-config
+  files:
+  - env/project.env
+
+configMapGenerator:
+- name: iati-data-validator-config
+  files:
+  - env/project.env
+  - env/iati-data-validator.env
+
+configMapGenerator:
+- name: iati-data-refresher-config
+  files:
+  - env/project.env
+  - env/iati-data-refresher.env
+  
+configMapGenerator:
+- name: iati-kitchen-config
+  files:
+  - env/project.env
+  - env/iati-kitchen.env
+
+configMapGenerator:
+- name: validator-api-public-config
+  files:
+  - env/project.env
+
+configMapGenerator:
+- name: validator-api-config
+  files:
+  - env/project.env
+
+configMapGenerator:
+- name: validator-front-end-config
+  files:
+  - env/project.env

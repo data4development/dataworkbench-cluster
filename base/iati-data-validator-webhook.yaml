@@ -45,9 +45,9 @@ spec:
           limits:
             memory: "3Gi"
             cpu: 300m
-        env:
-          - name: PROJECT_ID
-            value: dataworkbench-io
+        envFrom:
+        - configMapRef:
+          name: iati-data-validator-config
         readinessProbe:
           httpGet:
             path: /process/get-feedback

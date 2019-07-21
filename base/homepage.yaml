@@ -38,6 +38,7 @@ spec:
         ports:
         - name: front-end
           containerPort: 80
-        env:
-          - name: PROJECT_ID
-            value: dataworkbench-io
+        envFrom:
+        - configMapRef:
+          name: homepage-config
+      

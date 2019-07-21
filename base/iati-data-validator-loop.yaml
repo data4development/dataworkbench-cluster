@@ -23,9 +23,9 @@ spec:
           limits:
             memory: "2Gi"
             cpu: 300m
-        env:
-          - name: PROJECT_ID
-            value: dataworkbench-io
+        envFrom:
+        - configMapRef:
+          name: iati-data-validator-config
         volumeMounts:
         - mountPath: /workspace
           name: workspace
