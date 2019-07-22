@@ -39,3 +39,6 @@ spec:
         envFrom:
         - configMapRef:
           name: validator-api-public-config
+        env:
+        - name: API_TYPE
+          value: "public"
