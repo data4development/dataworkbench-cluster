@@ -16,7 +16,106 @@ In the public cluster configuration repository, the `develop` branch is used for
 
 At the moment, we still perform several steps by hand (red lines). These will become automated steps in a CI/CD pipeline.
 
-![](gitops-current.svg)
+![](gitops-current.drawio.svg)
+
+## Container configuration in Docker and Kubernetes
+
+Services will connect to resources outside the container image. We strive to use environment variables to pass information about the location of these resources to running containers, using ConfigMaps and Secrets in Kubernetes.
+
+### Component configuration part (Docker)
+
+In the Dockerfile for a component, we include a section of environment variables used by the container.
+
+Example portion from the API Dockerfile:
+
+```dockerfile
+FROM gcr.io/google_appengine/nodejs
+
+LABEL maintainer="Rolf Kleef <rolf@data4development.nl>" \
+  description="DataWorkbench API" \
+  repository="https://github.com/data4development/dataworkbench-api"
+
+# To be adapted in the cluster or runtime config
+ENV \
+    # run the API in public mode: \
+    # API_TYPE=public \
+    \
+    CONTAINER_PUBLIC_SOURCE=dataworkbench-iati \
+    CONTAINER_PUBLIC_FEEDBACK=dataworkbench-iatifeedback \
+    CONTAINER_PUBLIC_JSON=dataworkbench-json \
+    CONTAINER_PUBLIC_SVRL=dataworkbench-svrl \
+    \
+    CONTAINER_UPLOAD_SOURCE=dataworkbench-testfile \
+    CONTAINER_UPLOAD_FEEDBACK=dataworkbench-testiatifeedback \
+    CONTAINER_UPLOAD_JSON=dataworkbench-testjson \
+    CONTAINER_UPLOAD_SVRL=dataworkbench-testsvrl
+# ----------
+
+# ... etcetera
+```
+
+### Cluster configuration part (Kubernetes)
+
+In the cluster configuration, we use a copy of the environment variables to adapt them to a specific deployment.
+
+Step 1: use kustomize to generate a Kubernetes ConfigMap or Secret from the variables.
+
+In `deploy/env/api.env`:
+
+```bash
+# run the API in public mode:
+# API_TYPE=public
+
+CONTAINER_PUBLIC_SOURCE=my-bucket-iati
+CONTAINER_PUBLIC_FEEDBACK=my-bucket-iatifeedback
+CONTAINER_PUBLIC_JSON=my-bucket-json
+CONTAINER_PUBLIC_SVRL=my-bucket-svrl
+
+CONTAINER_UPLOAD_SOURCE=my-bucket-testfile
+CONTAINER_UPLOAD_FEEDBACK=my-bucket-testiatifeedback
+CONTAINER_UPLOAD_JSON=my-bucket-testjson
+CONTAINER_UPLOAD_SVRL=my-bucket-testsvrl
+```
+
+In `deploy/kustomization.`yaml:
+
+```yaml
+# ...
+configMapGenerator:
+- name: iati-kitchen-config
+  files:
+  - env/project.env
+  - env/iati-kitchen.env
+
+# ...
+```
+
+Step 2: use the ConfigMap to add the environment variables to a deployment.
+
+In `base/validator-api-public.yaml`:
+
+```yaml
+# ...
+    spec:
+      containers:
+      - name: validator-api-public-app
+        image: gcr.io/dataworkbench-io/validator-api:0.5.7-public
+        imagePullPolicy: Always
+        ports:
+        - name: api-public
+          containerPort: 8080
+        envFrom:
+        - configMapRef:
+          name: validator-api-public-config
+        env:
+        - name: API_TYPE
+          value: "public"
+# ...
+```
+
+When deploying with `kubectl apply -k`, kustomize will create and deploy a ConfigMap with a suffix added to make the name of the configmap unique, and also update the deployment to use that unique configmap name.
+
+![](gitops-configs.drawio.svg)
 
 ## Cluster architecture
 
