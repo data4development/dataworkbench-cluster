@@ -25,7 +25,7 @@ spec:
                 cpu: "200m"
             envFrom:
             - configMapRef:
-              name: iati-kitchen-config
+                name: iati-kitchen-config
             volumeMounts:
             - mountPath: /home/workspace
               name: workspace
@@ -63,16 +63,21 @@ spec:
                 cpu: "200m"
             envFrom:
             - configMapRef:
-              name: iati-kitchen-config
+                name: iati-kitchen-config
             volumeMounts:
             - mountPath: /home/workspace
               name: workspace
+            - name: kettle-properties-volume
+              mountPath: /home/.kettle
           restartPolicy: Never
           volumes:
           - name: workspace
             hostPath:
               path: /home/workspace
               type: DirectoryOrCreate
+          - name: kettle-properties-volume
+            configMap:
+              name: iati-kitchen-kettle-properties
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
@@ -101,5 +106,5 @@ spec:
                 cpu: "200m"
             envFrom:
             - configMapRef:
-              name: iati-kitchen-config
+                name: iati-kitchen-config
           restartPolicy: Never

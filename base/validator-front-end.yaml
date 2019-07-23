@@ -40,4 +40,4 @@ spec:
           containerPort: 80
         envFrom:
         - configMapRef:
-          name: validator-front-end-config
+            name: validator-front-end-config

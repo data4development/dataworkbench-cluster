@@ -47,7 +47,7 @@ spec:
             cpu: 300m
         envFrom:
         - configMapRef:
-          name: iati-data-validator-config
+            name: iati-data-validator-config
         readinessProbe:
           httpGet:
             path: /process/get-feedback

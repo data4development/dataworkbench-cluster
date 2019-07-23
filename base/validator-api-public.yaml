@@ -38,7 +38,7 @@ spec:
           containerPort: 8080
         envFrom:
         - configMapRef:
-          name: validator-api-public-config
+            name: validator-api-public-config
         env:
         - name: API_TYPE
           value: "public"

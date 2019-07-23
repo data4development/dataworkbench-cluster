@@ -115,6 +115,8 @@ In `base/validator-api-public.yaml`:
 
 When deploying with `kubectl apply -k`, kustomize will create and deploy a ConfigMap with a suffix added to make the name of the configmap unique, and also update the deployment to use that unique configmap name.
 
+Use `kubectl kustomize deploy | less` to inspect the complete configuration that will be deployed in an `apply` command.
+
 ![](gitops-configs.drawio.svg)
 
 ## Cluster architecture
