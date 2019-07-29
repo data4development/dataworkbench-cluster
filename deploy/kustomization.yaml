@@ -41,6 +41,6 @@ configMapGenerator:
 - name: validator-front-end-config
   env: env/project.env
 
-- name: frontend-env-js-volume
+- name: frontend-env-js
   files:
   - properties/env.js

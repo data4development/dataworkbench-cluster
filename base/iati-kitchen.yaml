@@ -29,12 +29,18 @@ spec:
             volumeMounts:
             - mountPath: /home/workspace
               name: workspace
+            - name: kettle-properties-volume
+              mountPath: /home/.kettle/kettle.properties
+              subPath: kettle.properties
           restartPolicy: Never
           volumes:
           - name: workspace
             hostPath:
               path: /home/workspace
               type: DirectoryOrCreate
+          - name: kettle-properties-volume
+            configMap:
+              name: iati-kitchen-kettle-properties
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
@@ -68,7 +74,8 @@ spec:
             - mountPath: /home/workspace
               name: workspace
             - name: kettle-properties-volume
-              mountPath: /home/.kettle
+              mountPath: /home/.kettle/kettle.properties
+              subPath: kettle.properties
           restartPolicy: Never
           volumes:
           - name: workspace
@@ -107,4 +114,12 @@ spec:
             envFrom:
             - configMapRef:
                 name: iati-kitchen-config
+            volumeMounts:
+            - name: kettle-properties-volume
+              mountPath: /home/.kettle/kettle.properties
+              subPath: kettle.properties
           restartPolicy: Never
+          volumes:
+          - name: kettle-properties-volume
+            configMap:
+              name: iati-kitchen-kettle-properties
