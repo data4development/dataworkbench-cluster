@@ -41,3 +41,10 @@ spec:
         envFrom:
         - configMapRef:
             name: validator-front-end-config
+        volumeMounts:
+        - name: frontend-env-js-volume
+          mountPath: /usr/share/nginx/html/iati-feedback
+      volumes:
+      - name: frontend-env-js-volume
+        configMap:
+          name: frontend-env-js
