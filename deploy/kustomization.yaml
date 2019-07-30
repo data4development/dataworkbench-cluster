@@ -15,6 +15,25 @@ resources:
 
 namespace: default
 
+images:
+- name: gcr.io/d4d-dataworkbench/homepage
+  newTag: 0.3.6
+  
+- name: gcr.io/d4d-dataworkbench/validator-api
+  newTag: 1.0.0-alpha-1
+  
+- name: gcr.io/d4d-dataworkbench/validator-front-end
+  newTag: 0.10.0-staging
+  
+- name: gcr.io/d4d-dataworkbench/iati-data-validator
+  newTag: 0.12.7
+  
+- name: gcr.io/d4d-dataworkbench/iati-kitchen
+  newTag: 0.10.0
+  
+- name: gcr.io/d4d-dataworkbench/iati-data-refresher
+  newTag: 0.10.0-deploy
+
 configMapGenerator:
 - name: homepage-config
   env: env/project.env

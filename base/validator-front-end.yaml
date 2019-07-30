@@ -33,7 +33,7 @@ spec:
         node: core
       containers:
       - name: validator-front-end
-        image: gcr.io/dataworkbench-io/validator-front-end:0.8.7
+        image: gcr.io/d4d-dataworkbench/validator-front-end:0.8.7
         imagePullPolicy: Always
         ports:
         - name: front-end

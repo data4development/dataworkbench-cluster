@@ -13,5 +13,4 @@ resources:
 - iati-kitchen.yaml
 - ingress.yaml
 - validator-api.yaml
-- validator-api-public.yaml
 - validator-front-end.yaml

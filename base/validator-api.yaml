@@ -33,7 +33,7 @@ spec:
         node: core
       containers:
       - name: validator-api-app
-        image: gcr.io/dataworkbench-io/validator-api:0.5.7
+        image: gcr.io/d4d-dataworkbench/validator-api:1.0.0
         imagePullPolicy: Always
         ports:
         - name: api-server
@@ -41,3 +41,49 @@ spec:
         envFrom:
         - configMapRef:
             name: validator-api-config
+---            
+apiVersion: v1
+kind: Service
+metadata:
+  name: validator-api-public
+  labels:
+    app: validator-api-public
+    tier: frontend
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: api-public
+  selector:
+    app: validator-api-public
+    tier: frontend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: validator-api-public
+  labels:
+    app: validator-api-public
+spec:
+  # override in deploy/scaling.yaml
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: validator-api-public
+        tier: frontend
+    spec:
+      containers:
+      - name: validator-api-public-app
+        image: gcr.io/d4d-dataworkbench/validator-api:1.0.0
+        imagePullPolicy: Always
+        ports:
+        - name: api-public
+          containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: validator-api-public-config
+        env:
+        - name: API_TYPE
+          value: "public"
+            

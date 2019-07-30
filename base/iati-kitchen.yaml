@@ -16,7 +16,7 @@ spec:
         spec:
           containers:
           - name: iati-kitchen
-            image: gcr.io/dataworkbench-io/iati-kitchen:0.3.17
+            image: gcr.io/d4d-dataworkbench/iati-kitchen:0.3.17
             args:
               - "-file=remove_obsolete_data.kjb"
             resources:
@@ -60,7 +60,7 @@ spec:
         spec:
           containers:
           - name: iati-kitchen
-            image: gcr.io/dataworkbench-io/iati-kitchen:0.3.17
+            image: gcr.io/d4d-dataworkbench/iati-kitchen:0.3.17
             args:
               - "-file=remove_orphan_data.kjb"
             resources:
@@ -104,7 +104,7 @@ spec:
         spec:
           containers:
           - name: iati-kitchen
-            image: gcr.io/dataworkbench-io/iati-kitchen:0.3.17
+            image: gcr.io/d4d-dataworkbench/iati-kitchen:0.3.17
             args:
               - "-file=refresh_from_registry.kjb"
             resources:
