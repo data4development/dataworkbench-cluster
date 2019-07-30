@@ -1,8 +1,11 @@
 ---
-title: Setup
+title: Project and cluster setup
+suborder: 2
 ---
 
-Steps needed to deploy the DataWorkbench components. Most of these are specific for the Google Kubernetes Engine environment and may not work in another context.
+The first part consists of the setup of a Google project, and of the key cluster infrastructure and backend services.
+
+After this is completed, it's possible to add multiple deployment environments.
 
 ## Create a Google project
 
@@ -14,14 +17,6 @@ Components used:
 
 Tag container images with the appropriate location name. Push the images to the registry to make them available in the cluster(s) in the project.
 
-### Storage
-
-Create the Google Storage buckets for each environment.
-
-{:.warning}
-
-TODO: Bucket names have to be globally unique, which poses problems working with different environments: the service(s) using the Storage backend will need to be configured to use the appropriate buckets.
-
 ### Postgresql
 
 Create a Postgresql instance, and add a Private IP as a connection. The IP address and the username and password of a Postgres user are required in the configuration of the cluster.
@@ -32,32 +27,11 @@ It's possible to use [the proxy application](https://cloud.google.com/sql/docs/p
 ./cloud_sql_proxy -instances=d4d-dataworkbench:europe-west4:d4d-dataworkbench-1=tcp:19432 &
 ```
 
-The setup folder has the DDL to set up the Pentaho logs database in a database of choice.
+Next, set up the right database for a specific tenant/deployment environment.
 
 ### VPC network
 
-Under "External IP addresses", reserve a global static IP address to be used by the ingress later on. Give it a name like `stage-ip4-dataworkbench-io`:
-
-```bash
-gcloud compute addresses create stage-ip4-dataworkbench-io` --global
-```
-
-{:.warning}
-
-Make sure to use the `--global` flag, otherwise the ingress will not bind to it.
-
-The address can now be used in the Ingress specification:
-
-```yaml
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: dwb-ingress
-  annotations:
-    kubernetes.io/ingress.global-static-ip-name: stage-ip4-dataworkbench-io
-```
-
-Once the IP address is available, add it to the DNS of the domain of choice.
+Set up a specific external IP address for a specific tenant/deployment environment.
 
 ## Create a Kubernetes cluster
 
@@ -90,46 +64,6 @@ TODO for API: for local testing with remote storage buckets, you need a key file
 
 ### Namespaces
 
-The respective testing, staging and production branches specify their namespace via kustomize.
-
-In `namespace.yaml`:
-
-```yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: testing
-```
-
-In `kustomize.yaml`:
-
-```yaml
-# ...
-resources:
-- namespace.yaml
-
-namespace: testing
-```
-
 {:.warning}
 
 Nodes and persistentVolumes are not in a namespace. For storage in persistentVolumes, this requires some additional configuration to make sure applications don't interfere across namespaces.
-
-### MongoDB
-
-Once the Mongo stateful set is up and running, it still needs to be configured as a replicaset in Mongo.
-
-TODO: write out better instructions
-
-{:.warning}
-
-Most examples of running Mongo on Kubernetes will use a sidecar container that reconfigures Mongo on the fly. This has some risks for larger Mongo replicasets (citation needed). Instead, since we work with a static cluster size, we configure the replicaset by hand for now.
-
-To reconfigure the replicaset in case the host specifications are wrong, this is how it can be done, using the pod addresses as provided by the Kubernetes DNS.
-
-```javascript
-cfg = rs.conf()
-cfg.members=[{_id:0, host:"mongo-0.mongo"}, {_id:1, host:"mongo-1.mongo"}, {_id:2, host: "mongo-2.mongo"}]
-printjson(cfg)
-rs.reconfig(cfg, {force : true})
-```

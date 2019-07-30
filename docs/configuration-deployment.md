@@ -14,26 +14,30 @@ Two separate cluster repositories contain the configuration details, including t
 
 In the public cluster configuration repository, the `develop` branch is used for changes in the testing or staging phases. Once promoted to production, the base changes will be merged into the `master` branch.
 
-At the moment, we still perform several steps by hand (red lines). These will become automated steps in a CI/CD pipeline.
+At the moment, we still perform several steps by hand (red lines). These should become automated steps in a CI/CD pipeline.
 
 ![](gitops-current.drawio.svg)
 
 ## Container configuration in Docker and Kubernetes
 
-Services will connect to resources outside the container image. We strive to use environment variables to pass information about the location of these resources to running containers, using ConfigMaps and Secrets in Kubernetes.
+Services and tasks will connect to resources outside the container image. We pass information about the location of these resources to running containers using ConfigMaps and Secrets in Kubernetes.
 
 ### Component configuration part (Docker)
 
-In the Dockerfile for a component, we include a section of environment variables used by the container.
+In the Dockerfile for a component, we include a section with information about environment variables and configuration files used by the container. These can be adapted using Kubernetes ConfigMaps and Secrets.
+
+```dockerfile
+# To be adapted in the cluster or runtime config
+#...
+# ----------
+```
 
 Example portion from the API Dockerfile:
 
 ```dockerfile
 FROM gcr.io/google_appengine/nodejs
 
-LABEL maintainer="Rolf Kleef <rolf@data4development.nl>" \
-  description="DataWorkbench API" \
-  repository="https://github.com/data4development/dataworkbench-api"
+# ...label...
 
 # To be adapted in the cluster or runtime config
 ENV \
@@ -56,7 +60,7 @@ ENV \
 
 ### Cluster configuration part (Kubernetes)
 
-In the cluster configuration, we use a copy of the environment variables to adapt them to a specific deployment.
+In the cluster configuration, we use a copy of the environment variables and configuration files to adapt them to a specific deployment.
 
 Step 1: use kustomize to generate a Kubernetes ConfigMap or Secret from the variables.
 
@@ -92,7 +96,7 @@ configMapGenerator:
 
 Step 2: use the ConfigMap to add the environment variables to a deployment.
 
-In `base/validator-api-public.yaml`:
+In `base/validator-api-public.yaml` we use the general API configuration and add an extra variable to run the public version of the API.
 
 ```yaml
 # ...
@@ -116,8 +120,6 @@ In `base/validator-api-public.yaml`:
 When deploying with `kubectl apply -k`, kustomize will create and deploy a ConfigMap with a suffix added to make the name of the configmap unique, and also update the deployment to use that unique configmap name.
 
 Use `kubectl kustomize deploy | less` to inspect the complete configuration that will be deployed in an `apply` command.
-
-![](gitops-configs.drawio.svg)
 
 ## Cluster architecture
 

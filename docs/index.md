@@ -3,9 +3,18 @@ title: Cluster
 order: 1
 ---
 
-The DataWorkbench consists of applications running as services and background jobs in containers on a Kubernetes cluster.
+The DataWorkbench consists of services and background jobs in containers on a Kubernetes cluster.
 
 The current version uses the Google Kubernetes Engine to host and manage the cluster, and Google Cloud products to provide storage, access and management.
 
-![](system-overview.svg)
+Each component executes one or more services or tasks. The cluster configuration binds the components to the right deployment environment.
 
+![](system-overview.drawio.svg)
+
+## Container configuration in Docker and Kubernetes
+
+Services and tasks will connect to resources outside the container image. We use Kubernetes' `kustomize` feature to pass information about the location of these resources to running containers using ConfigMaps and Secrets in Kubernetes.
+
+The result is that the running configuration of the cluster is completely contained in a git repository. The initial setup of the cluster and backend resources still needs manual steps.
+
+![](gitops-configs.drawio.svg)
