@@ -20,21 +20,25 @@ metadata:
 spec:
   ports:
   - port: 27017
-    targetPort: 27017
+    targetPort: mongod
   clusterIP: None
   selector:
     role: mongo
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongo
 spec:
   serviceName: "mongo"
   replicas: 3
+  selector:
+    matchLabels:
+      app: mongod
   template:
     metadata:
       labels:
+        app: mongod
         role: mongo
         environment: development
     spec:
@@ -52,7 +56,14 @@ spec:
             - "--noprealloc"
             - "--bind_ip_all"
           ports:
-            - containerPort: 27017
+            - name: mongod
+              containerPort: 27017
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "200m"
+            limits:
+              memory: "1Gi"
           volumeMounts:
             - name: mongo-storage
               mountPath: /data/db

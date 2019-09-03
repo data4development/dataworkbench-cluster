@@ -17,13 +17,16 @@ spec:
     app: iati-data-validator-webhook
     tier: backend
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: iati-data-validator-webhook
   labels:
     app: iati-data-validator-webhook
 spec:
+  selector:
+    matchLabels:
+      app: iati-data-validator-webhook
   template:
     metadata:
       labels:

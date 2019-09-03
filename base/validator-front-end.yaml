@@ -14,7 +14,7 @@ spec:
     app: validator-front-end
     tier: frontend
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: validator-front-end
@@ -23,6 +23,9 @@ metadata:
 spec:
   # override in deploy/scaling.yaml
   replicas: 1
+  selector:
+    matchLabels:
+      app: validator-front-end
   template:
     metadata:
       labels:
@@ -41,6 +44,12 @@ spec:
         envFrom:
         - configMapRef:
             name: validator-front-end-config
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "200m"
+          limits:
+            memory: "1Gi"
         volumeMounts:
         - name: frontend-env-js-volume
           mountPath: /usr/share/nginx/html/iati-feedback/env.js

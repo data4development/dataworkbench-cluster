@@ -14,7 +14,7 @@ spec:
     app: homepage
     tier: frontend
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: homepage
@@ -23,6 +23,9 @@ metadata:
 spec:
   # override in deploy/scaling.yaml
   replicas: 1
+  selector:
+    matchLabels:
+      app: homepage
   template:
     metadata:
       labels:
@@ -41,4 +44,10 @@ spec:
         envFrom:
         - configMapRef:
             name: homepage-config
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
       

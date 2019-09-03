@@ -1,10 +1,13 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: iati-data-validator-loop
   labels:
     app: iati-data-validator-loop
 spec:
+  selector:
+    matchLabels:
+      app: iati-data-validator-loop
   template:
     metadata:
       labels:

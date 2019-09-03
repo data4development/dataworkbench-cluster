@@ -14,7 +14,7 @@ spec:
     app: validator-api
     tier: frontend
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: validator-api
@@ -23,6 +23,9 @@ metadata:
 spec:
   # override in deploy/scaling.yaml
   replicas: 1
+  selector:
+    matchLabels:
+      app: validator-api
   template:
     metadata:
       labels:
@@ -41,6 +44,12 @@ spec:
         envFrom:
         - configMapRef:
             name: validator-api-config
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "200m"
+          limits:
+            memory: "1Gi"
 ---            
 apiVersion: v1
 kind: Service
@@ -58,7 +67,7 @@ spec:
     app: validator-api-public
     tier: frontend
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: validator-api-public
@@ -67,6 +76,9 @@ metadata:
 spec:
   # override in deploy/scaling.yaml
   replicas: 1
+  selector:
+    matchLabels:
+      app: validator-api-public
   template:
     metadata:
       labels:
@@ -86,4 +98,11 @@ spec:
         env:
         - name: API_TYPE
           value: "public"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "200m"
+          limits:
+            memory: "1Gi"
+          
             

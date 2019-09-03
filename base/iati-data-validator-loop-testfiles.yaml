@@ -5,6 +5,9 @@ metadata:
   labels:
     app: iati-data-validator-loop-testfiles
 spec:
+  selector:
+    matchLabels:
+      app: iati-data-validator-loop-testfiles
   template:
     metadata:
       labels:
