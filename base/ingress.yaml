@@ -2,6 +2,8 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: dataworkbench-ingress
+  annotations:
+    networking.gke.io/managed-certificates: web-certificate
 spec:
   backend:
     serviceName: homepage
@@ -52,3 +54,11 @@ metadata:
   name: dwb-backendconfig-longtimeout
 spec:
   timeoutSec: 3600
+---
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: web-certificate
+spec:
+  domains:
+    - example.com

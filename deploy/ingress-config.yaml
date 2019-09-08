@@ -4,3 +4,11 @@ metadata:
   name: dataworkbench-ingress
   annotations:
     kubernetes.io/ingress.global-static-ip-name: your-static-ip-name
+---
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: web-certificate
+spec:
+  domains:
+    - stage.example.com
