@@ -1,21 +1,16 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: iati-remove-obsolete-data-oneoff
-  labels:
-    env: develop
-    tier: backend
-    focus: sync
+  name: iati-kitchen-job
 spec:
   template:
     spec:
-      nodeSelector:
-        node: core
       containers:
       - name: iati-kitchen
-        image: gcr.io/dataworkbench-io/iati-kitchen:0.3.17
-        args:
-          - "-file=remove_obsolete_data.kjb"
+        image: gcr.io/d4d-dataworkbench/iati-kitchen:0.10.1
+        command:
+          - "/bin/sleep"
+          - "2h"
         resources:
           requests:
             memory: "512Mi"
@@ -23,9 +18,15 @@ spec:
         volumeMounts:
         - mountPath: /home/workspace
           name: workspace
+        - name: kettle-properties-volume
+          mountPath: /home/.kettle/kettle.properties
+          subPath: kettle.properties
       restartPolicy: Never
       volumes:
       - name: workspace
         hostPath:
           path: /home/workspace
           type: DirectoryOrCreate
+      - name: kettle-properties-volume
+        configMap:
+          name: iati-kitchen-kettle-properties-hcb5mgfcd5
