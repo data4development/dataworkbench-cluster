@@ -1,20 +1,17 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: iati-data-refresher-box
-  labels:
-    app: iati-data-refresher-box
+  name: iati-data-refresher-job
 spec:
-  replicas: 1
   template:
-    metadata:
-      labels:
-        app: iati-data-refresher-box
     spec:
       containers:
-      - name: iati-data-refresher-box
-        image: gcr.io/dataworkbench-io/iati-data-refresher:0.7.3-hotfix1
+      - name: iati-data-refresher-job
+        image: gcr.io/dataworkbench-io/iati-data-refresher:0.10.2-deploy
         imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: iati-data-refresher-config-269cd9889g
         command:
           - "/bin/sleep"
           - "2h"
@@ -33,6 +30,7 @@ spec:
             memory: "1Gi"
           limits:
             memory: "3Gi"
+      restartPolicy: Never
       volumes:
       - name: iati-snapshot
         hostPath:

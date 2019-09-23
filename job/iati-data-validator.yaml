@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: iati-data-validator-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: iati-data-validator-box
+        image: gcr.io/dataworkbench-io/iati-data-validator:0.12.9
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1Gi"
+          limits:
+            memory: "3Gi"
+        envFrom:
+        - configMapRef:
+            name: iati-data-validator-config-f48m9h6m5t
+        volumeMounts:
+        - mountPath: /workspace
+          name: workspace
+      volumes:
+      - name: workspace
+        emptyDir: {}
