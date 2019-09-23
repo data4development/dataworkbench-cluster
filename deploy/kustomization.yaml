@@ -26,13 +26,13 @@ images:
   newTag: 0.10.0-staging
   
 - name: gcr.io/d4d-dataworkbench/iati-data-validator
-  newTag: 0.12.7
+  newTag: 0.12.9
   
 - name: gcr.io/d4d-dataworkbench/iati-kitchen
   newTag: 0.10.0
   
 - name: gcr.io/d4d-dataworkbench/iati-data-refresher
-  newTag: 0.10.1-deploy
+  newTag: 0.10.2-deploy
 
 configMapGenerator:
 - name: homepage-config
