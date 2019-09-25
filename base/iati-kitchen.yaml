@@ -42,50 +42,50 @@ spec:
             configMap:
               name: iati-kitchen-kettle-properties
 ---
-apiVersion: batch/v1beta1
-kind: CronJob
-metadata:
-  name: iati-remove-orphan-data
-  labels:
-    env: develop
-    tier: backend
-    focus: sync
-spec:
-  # override in deploy/scheduling.yaml
-  schedule: "53 * * * *"
-  concurrencyPolicy: Forbid
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-          - name: iati-remove-orphan-data
-            image: gcr.io/d4d-dataworkbench/iati-kitchen:0.3.17
-            args:
-              - "-file=remove_orphan_data.kjb"
-            resources:
-              requests:
-                memory: "512Mi"
-                cpu: "200m"
-            envFrom:
-            - configMapRef:
-                name: iati-kitchen-config
-            volumeMounts:
-            - mountPath: /home/workspace
-              name: workspace
-            - name: kettle-properties-volume
-              mountPath: /home/.kettle/kettle.properties
-              subPath: kettle.properties
-          restartPolicy: Never
-          volumes:
-          - name: workspace
-            hostPath:
-              path: /home/workspace
-              type: DirectoryOrCreate
-          - name: kettle-properties-volume
-            configMap:
-              name: iati-kitchen-kettle-properties
----
+# apiVersion: batch/v1beta1
+# kind: CronJob
+# metadata:
+#   name: iati-remove-orphan-data
+#   labels:
+#     env: develop
+#     tier: backend
+#     focus: sync
+# spec:
+#   # override in deploy/scheduling.yaml
+#   schedule: "53 * * * *"
+#   concurrencyPolicy: Forbid
+#   jobTemplate:
+#     spec:
+#       template:
+#         spec:
+#           containers:
+#           - name: iati-remove-orphan-data
+#             image: gcr.io/d4d-dataworkbench/iati-kitchen:0.3.17
+#             args:
+#               - "-file=remove_orphan_data.kjb"
+#             resources:
+#               requests:
+#                 memory: "512Mi"
+#                 cpu: "200m"
+#             envFrom:
+#             - configMapRef:
+#                 name: iati-kitchen-config
+#             volumeMounts:
+#             - mountPath: /home/workspace
+#               name: workspace
+#             - name: kettle-properties-volume
+#               mountPath: /home/.kettle/kettle.properties
+#               subPath: kettle.properties
+#           restartPolicy: Never
+#           volumes:
+#           - name: workspace
+#             hostPath:
+#               path: /home/workspace
+#               type: DirectoryOrCreate
+#           - name: kettle-properties-volume
+#             configMap:
+#               name: iati-kitchen-kettle-properties
+# ---
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:

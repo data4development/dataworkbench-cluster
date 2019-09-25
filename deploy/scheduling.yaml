@@ -12,13 +12,13 @@ metadata:
 spec:
   schedule: "23 3 * * *"
 ---
-apiVersion: batch/v1beta1
-kind: CronJob
-metadata:
-  name: iati-remove-orphan-data
-spec:
-  schedule: "53 3 * * *"
----
+# apiVersion: batch/v1beta1
+# kind: CronJob
+# metadata:
+#   name: iati-remove-orphan-data
+# spec:
+#   schedule: "53 3 * * *"
+# ---
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
