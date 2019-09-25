@@ -15,7 +15,7 @@ spec:
       template:
         spec:
           containers:
-          - name: iati-kitchen
+          - name: iati-remove-obsolete-data
             image: gcr.io/d4d-dataworkbench/iati-kitchen:0.3.17
             args:
               - "-file=remove_obsolete_data.kjb"
@@ -59,7 +59,7 @@ spec:
       template:
         spec:
           containers:
-          - name: iati-kitchen
+          - name: iati-remove-orphan-data
             image: gcr.io/d4d-dataworkbench/iati-kitchen:0.3.17
             args:
               - "-file=remove_orphan_data.kjb"
@@ -103,7 +103,7 @@ spec:
       template:
         spec:
           containers:
-          - name: iati-kitchen
+          - name: iati-refresh-from-registry
             image: gcr.io/d4d-dataworkbench/iati-kitchen:0.3.17
             args:
               - "-file=refresh_from_registry.kjb"
