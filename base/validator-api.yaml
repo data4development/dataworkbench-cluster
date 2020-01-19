@@ -104,5 +104,12 @@ spec:
             cpu: "200m"
           limits:
             memory: "1Gi"
-          
-            
+        volumeMounts:
+        - name: api-datasources-properties-volume
+          mountPath: /app/server/datasources.local.json
+          subPath: datasources.local.json
+      volumes:
+      - name: api-datasources-properties-volume
+        configMap:
+          name: api-datasources-properties
+

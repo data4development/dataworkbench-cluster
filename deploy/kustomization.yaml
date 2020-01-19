@@ -63,3 +63,7 @@ configMapGenerator:
 - name: frontend-env-js
   files:
   - properties/env.js
+
+- name: api-datasources-properties
+  files:
+  - properties/datasources.local.json
