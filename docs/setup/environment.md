@@ -71,31 +71,6 @@ Nodes and persistentVolumes are not in a namespace. For storage in persistentVol
 
 ### MongoDB
 
-Once the Mongo stateful set is up and running, it still needs to be configured as a replicaset in Mongo.
+Once the Mongo service is up and running, it still needs to be configured with the database for the deployment.
 
-Connect to the first Mongo instance, open a Mongo shell, and run
-
-```javascript
-rs.initiate( {
-   _id : "rs0",
-   members: [
-      { _id: 0, host: "mongo-0.mongo:27017" },
-      { _id: 1, host: "mongo-1.mongo:27017" },
-      { _id: 2, host: "mongo-2.mongo:27017" }
-   ]
-})
-```
-
-{:.warning}
-
-Most examples of running Mongo on Kubernetes will use a sidecar container that reconfigures Mongo on the fly. This has some risks for larger Mongo replicasets (citation needed). Instead, since we work with a static cluster size, we configure the replicaset by hand for now.
-
-To reconfigure the replicaset in case the host specifications are wrong, this is how it can be done, using the pod addresses as provided by the Kubernetes DNS.
-
-```javascript
-cfg = rs.conf()
-cfg.members=[{_id:0, host:"mongo-0.mongo"}, {_id:1, host:"mongo-1.mongo"}, {_id:2, host: "mongo-2.mongo"}]
-printjson(cfg)
-rs.reconfig(cfg, {force : true})
-```
-
+Once the collections within the database are created, it is good practice to create indexes on the appropriate fields, to speed up retrieval and prevent warnings from Mongo.

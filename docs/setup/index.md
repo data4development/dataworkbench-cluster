@@ -10,14 +10,13 @@ The setup has two main parts:
 1. We first need to set up the [basic infrastructure of project and cluster](cluster)
    * Create a Google Cloud project
    * Create a Kubernetes cluster
-   * Create the backend services like the Cloud SQL database
+   * Create the backend services like the Cloud SQL and MongoDB servers
 2. We then need to set up a [specific deployment environment](environment) on that infrastructure
    * Configure the deployment for a specific namespace
    * Create specific resources in the backend services for this deployment
      * Storage buckets for files
      * Cloud SQL database
-   * Initialise resources where needed
-     * Create a replicaset out of Mongo instances
+     * Mongo database
 
 ## Multi-tenant and deployment pipeline setup
 

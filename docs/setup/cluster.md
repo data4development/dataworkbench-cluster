@@ -29,9 +29,9 @@ It's possible to use [the proxy application](https://cloud.google.com/sql/docs/p
 
 Next, set up the right database for a specific tenant/deployment environment.
 
-### VPC network
+### MongoDB Atlas
 
-Set up a specific external IP address for a specific tenant/deployment environment.
+Create a MongoDB cluster in Mongo Atlas, in the same zone where the Kubernetes cluster will be created.
 
 ## Create a Kubernetes cluster
 
@@ -67,3 +67,9 @@ TODO for API: for local testing with remote storage buckets, you need a key file
 {:.warning}
 
 Nodes and persistentVolumes are not in a namespace. For storage in persistentVolumes, this requires some additional configuration to make sure applications don't interfere across namespaces.
+
+### VPC network
+
+Set up a specific external IP address for a specific tenant/deployment environment.
+
+Set up VPC peering between the Kubernetes cluster and the MongoDB cluster, to allow direct access from containers to the Mongo databases.

@@ -125,15 +125,15 @@ Use `kubectl kustomize deploy | less` to inspect the complete configuration that
 
 The cluster consists of two types of nodes.
 
-1. A `default-pool` of nodes that are permanently available, to run the API, the web front-end, as well as both a Mongo and a Postgres database.
-
-    * The API service provides the point of contact for other services within the cluster, as well as for the outside world.
-    * The Mongo database holds information about the datasets in the system, and about IATI publishers (updated from the IATI Registry).
-    * The Postgres database currently holds the logs of Pentaho jobs.
+1. A `default-pool` of nodes that are permanently available, to run the API and the web front-end. The API service provides the point of contact for other services within the cluster, as well as for the outside world.
 
 2. A `pre-emptible-pool` of nodes to mainly run batch operations. These nodes can be terminated at any point. This pool is configured with auto-scaling to grow as needed (within limits), to offer a trade-off between processing speed and time.
 
 In addition, there still is a separate server running the IATI Data Refresher to update the IATI snapshot. The data is then pushed to a Source Repository on the Google Cloud Platform.
+
+The Postgres database runs as a Google Cloud SQL Service and holds the logs of Pentaho jobs.
+
+The Mongo database runs as a separate cluster hosted via MongoDB Atlas, in the same zone as the DataWorkbench cluster, and holds information about the datasets in the system, and about IATI publishers (updated from the IATI Registry).
 
 ![](./deployment-overview.drawio.svg)
 
