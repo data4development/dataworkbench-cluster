@@ -1,23 +1,30 @@
 {
   "iati-filestore": {
+    "provider": "google",
     "projectId": "d4d-dataworkbench"
   },
   "iati-publishers": {
+    "connector": "mongodb",
     "url": "mongodb+srv://USER:PASSWORD@CLUSTER.gcp.mongodb.net/DATABASE?retryWrites=true&w=majority"
   },
   "iati-datasets": {
+    "connector": "mongodb",
     "url": "mongodb+srv://USER:PASSWORD@CLUSTER.gcp.mongodb.net/DATABASE?retryWrites=true&w=majority"
   },
   "workspaces": {
+    "connector": "mongodb",
     "url": "mongodb+srv://USER:PASSWORD@CLUSTER.gcp.mongodb.net/DATABASE?retryWrites=true&w=majority"
   },
   "versions": {
+    "connector": "mongodb",
     "url": "mongodb+srv://USER:PASSWORD@CLUSTER.gcp.mongodb.net/DATABASE?retryWrites=true&w=majority"
   },
   "iati-testfilestore": {
+    "provider": "google",
     "projectId": "d4d-dataworkbench-io"
   },
   "iati-testdatasets": {
+    "connector": "mongodb",
     "url": "mongodb+srv://USER:PASSWORD@CLUSTER.gcp.mongodb.net/DATABASE?retryWrites=true&w=majority"
   }
 }
