@@ -66,7 +66,7 @@ Step 1: use kustomize to generate a Kubernetes ConfigMap or Secret from the vari
 
 In `deploy/env/api.env`:
 
-```bash
+```sh
 # run the API in public mode:
 # API_TYPE=public
 
@@ -81,7 +81,7 @@ CONTAINER_UPLOAD_JSON=my-bucket-testjson
 CONTAINER_UPLOAD_SVRL=my-bucket-testsvrl
 ```
 
-In `deploy/kustomization.`yaml:
+In `deploy/kustomization.yaml`:
 
 ```yaml
 # ...
