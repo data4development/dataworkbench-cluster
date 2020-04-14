@@ -4,7 +4,7 @@ title: DataWorkbench cluster setup
 email: rolf@drostan.org
 description: Configurations for the Kubernetes cluster
 brand: DataWorkbench
-github: https://github.com/data4development/dataworkbench-cluster
+github: data4development/dataworkbench-cluster
 
 defaults:
   -
