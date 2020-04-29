@@ -33,6 +33,12 @@ spec:
         volumeMounts:
         - mountPath: /workspace
           name: workspace
+        - name: ssmtp-conf-volume
+          mountPath: /etc/ssmtp/ssmtp.conf
+          subPath: ssmtp.conf
       volumes:
       - name: workspace
         emptyDir: {}
+      - name: ssmtp-conf-volume
+        configMap:
+          name: ssmtp-config

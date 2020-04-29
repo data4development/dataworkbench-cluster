@@ -67,3 +67,7 @@ configMapGenerator:
 - name: api-datasources-properties
   files:
   - properties/datasources.local.json
+
+- name: ssmtp-config
+  files:
+  - properties/ssmtp.conf
