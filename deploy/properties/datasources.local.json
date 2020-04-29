@@ -26,5 +26,9 @@
   "iati-testdatasets": {
     "connector": "mongodb",
     "url": "mongodb+srv://USER:PASSWORD@CLUSTER.gcp.mongodb.net/DATABASE?retryWrites=true&w=majority"
+  },
+  "iati-testworkspaces": {
+    "connector": "mongodb",
+    "url": "mongodb+srv://USER:PASSWORD@CLUSTER.gcp.mongodb.net/DATABASE?retryWrites=true&w=majority"
   }
 }

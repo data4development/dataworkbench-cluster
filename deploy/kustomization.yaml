@@ -20,7 +20,7 @@ images:
   newTag: 0.3.6
   
 - name: gcr.io/d4d-dataworkbench/validator-api
-  newTag: 1.0.0-alpha-1
+  newTag: 1.2.0-alpha
   
 - name: gcr.io/d4d-dataworkbench/validator-front-end
   newTag: 0.10.0-staging
