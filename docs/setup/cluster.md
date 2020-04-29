@@ -33,6 +33,8 @@ Next, set up the right database for a specific tenant/deployment environment.
 
 Create a MongoDB cluster in Mongo Atlas, in the same zone where the Kubernetes cluster will be created.
 
+(It is also possible to use another MongoDB host, as long as it is reachable from the cluster.)
+
 ## Create a Kubernetes cluster
 
 Google organises its resources in regions, each with multiple zones. Typically, the cluster and its persistent disks and so on run in a single zone.
@@ -73,3 +75,12 @@ Nodes and persistentVolumes are not in a namespace. For storage in persistentVol
 Set up a specific external IP address for a specific tenant/deployment environment.
 
 Set up VPC peering between the Kubernetes cluster and the MongoDB cluster, to allow direct access from containers to the Mongo databases.
+
+### Email service
+
+To enable sending of email notifications, the system needs to be able to reach an SMTP relay server.
+
+When running in a GSuite environment, it is possible to [use Google's SMTP relay service](https://support.google.com/a/answer/2956491).
+
+* Set up a firewall rule for the cluster to enable outgoing traffic, [see for instance these instructions](https://cloud.google.com/compute/docs/tutorials/sending-mail/).
+* [Follow the instructions of the SMTP relay service](https://support.google.com/a/answer/2956491) to enable sending email from specified IP addresses in GSuite Admin.
