@@ -22,7 +22,7 @@ The setup folder has the DDL to set up the Pentaho logs database in a database o
 Under "External IP addresses", reserve a global static IP address to be used by the ingress later on. Give it a name like `stage-ip4-dataworkbench-io`:
 
 ```bash
-gcloud compute addresses create stage-ip4-dataworkbench-io` --global
+gcloud compute addresses create stage-ip4-dataworkbench-io --global
 ```
 
 {:.warning}
