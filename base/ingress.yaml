@@ -6,7 +6,7 @@ metadata:
     networking.gke.io/managed-certificates: web-certificate
 spec:
   backend:
-    serviceName: homepage
+    serviceName: validator-front-end
     servicePort: 80
   rules:
     - http:
@@ -14,14 +14,6 @@ spec:
           # GKE ingress uses url-maps that require wildcards
           # and also a separate (duplicate) rule for URLs to a directory
           # but not ending with a '/'
-        - path: /iati-feedback
-          backend:
-            serviceName: validator-front-end
-            servicePort: 80
-        - path: /iati-feedback/*
-          backend:
-            serviceName: validator-front-end
-            servicePort: 80
         - path: /api/v1
           backend:
             serviceName: validator-api-public
