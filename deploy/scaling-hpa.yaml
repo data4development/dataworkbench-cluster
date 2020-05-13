@@ -25,17 +25,3 @@ spec:
   minReplicas: 1
   maxReplicas: 1
   targetCPUUtilizationPercentage: 70
----
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: iati-data-validator-webhook
-  namespace: default
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: iati-data-validator-webhook
-  minReplicas: 1
-  maxReplicas: 1
-  targetCPUUtilizationPercentage: 70

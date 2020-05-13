@@ -6,7 +6,6 @@ resources:
 - iati-data-refresher.yaml
 - iati-data-validator-loop.yaml
 - iati-data-validator-loop-testfiles.yaml
-- iati-data-validator-webhook.yaml
 - iati-kitchen.yaml
 - ingress.yaml
 - validator-api.yaml
