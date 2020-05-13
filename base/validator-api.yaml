@@ -120,4 +120,43 @@ spec:
       - name: api-datasources-properties-volume
         configMap:
           name: api-datasources-properties
-
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: validator-datastore-sync
+  labels:
+    app: validator-datastore-sync
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: validator-datastore-sync
+  template:
+    metadata:
+      labels:
+        app: validator-datastore-sync
+        tier: backend
+    spec:
+      containers:
+      - name: validator-datastore-sync
+        image: gcr.io/d4d-dataworkbench/validator-api:1.0.0
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: validator-api-config
+        env:
+        - name: RUN_JOBS
+          value: "run"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "200m"
+        volumeMounts:
+        - name: api-datasources-properties-volume
+          mountPath: /app/server/datasources.local.json
+          subPath: datasources.local.json
+      volumes:
+      - name: api-datasources-properties-volume
+        configMap:
+          name: api-datasources-properties

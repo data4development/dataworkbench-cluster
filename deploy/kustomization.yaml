@@ -19,26 +19,20 @@ namespace: default
 images:
 - name: gcr.io/d4d-dataworkbench/validator-api
   newTag: 1.2.0-alpha
-  
+
 - name: gcr.io/d4d-dataworkbench/validator-front-end
   newTag: 0.10.0-staging
-  
+
 - name: gcr.io/d4d-dataworkbench/iati-data-validator
   newTag: 0.12.9
-  
+
 - name: gcr.io/d4d-dataworkbench/iati-kitchen
   newTag: 0.10.0
-  
-- name: gcr.io/d4d-dataworkbench/iati-data-refresher
-  newTag: 0.10.2-deploy
 
 configMapGenerator:
 - name: iati-data-validator-config
   env: env/iati-data-validator.env
 
-- name: iati-data-refresher-config
-  env: env/iati-data-refresher.env
-  
 - name: iati-kitchen-config
   env: env/iati-kitchen.env
 

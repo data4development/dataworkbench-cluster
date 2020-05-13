@@ -1,13 +1,6 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: iati-data-update
-spec:
-  schedule: "14 5 * * *"
----
-apiVersion: batch/v1beta1
-kind: CronJob
-metadata:
   name: iati-remove-obsolete-data
 spec:
   schedule: "23 3 * * *"
