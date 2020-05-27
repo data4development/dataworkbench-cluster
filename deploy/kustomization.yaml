@@ -24,7 +24,7 @@ images:
   newTag: 0.10.0-staging
 
 - name: gcr.io/d4d-dataworkbench/iati-data-validator
-  newTag: 0.12.9
+  newTag: 1.4.9
 
 - name: gcr.io/d4d-dataworkbench/iati-kitchen
   newTag: 0.11.0
@@ -57,6 +57,6 @@ configMapGenerator:
   files:
   - properties/datasources.local.json
 
-- name: ssmtp-config
+- name: msmtp-config
   files:
-  - properties/ssmtp.conf
+  - properties/msmtprc

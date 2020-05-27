@@ -18,7 +18,7 @@ spec:
         node: preemptible
       containers:
       - name: iati-data-validator-loop-testfiles
-        image: gcr.io/d4d-dataworkbench/iati-data-validator:0.11.5
+        image: gcr.io/d4d-dataworkbench/iati-data-validator:1.4.9
         command: ["/home/loop-unprocessed-testfiles"]
         imagePullPolicy: Always
         resources:
@@ -33,12 +33,12 @@ spec:
         volumeMounts:
         - mountPath: /workspace
           name: workspace
-        - name: ssmtp-conf-volume
-          mountPath: /etc/ssmtp/ssmtp.conf
-          subPath: ssmtp.conf
+        - name: msmtp-conf-volume
+          mountPath: /etc/msmtprc
+          subPath: msmtprc
       volumes:
       - name: workspace
         emptyDir: {}
-      - name: ssmtp-conf-volume
+      - name: msmtp-conf-volume
         configMap:
-          name: ssmtp-config
+          name: msmtp-config
