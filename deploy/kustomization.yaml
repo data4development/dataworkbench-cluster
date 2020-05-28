@@ -27,7 +27,7 @@ images:
   newTag: 1.4.9
 
 - name: gcr.io/d4d-dataworkbench/iati-kitchen
-  newTag: 0.11.0
+  newTag: 0.11.1
 
 configMapGenerator:
 - name: iati-data-validator-config
