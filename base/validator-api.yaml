@@ -32,8 +32,6 @@ spec:
         app: validator-api
         tier: frontend
     spec:
-      nodeSelector:
-        node: core
       containers:
       - name: validator-api-app
         image: gcr.io/d4d-dataworkbench/validator-api:1.0.0
