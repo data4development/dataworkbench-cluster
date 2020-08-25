@@ -1,0 +1,302 @@
+---
+displayName: Dataworkbench Overview
+etag: b2a1aa4690156f55a832a7f55930e4ef
+gridLayout:
+  widgets:
+  - title: Total CPU usage by project, namespace, container
+    xyChart:
+      chartOptions:
+        mode: COLOR
+      dataSets:
+      - minAlignmentPeriod: 60s
+        plotType: STACKED_AREA
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              crossSeriesReducer: REDUCE_SUM
+              groupByFields:
+              - resource.label."project_id"
+              - resource.label."namespace_name"
+              - resource.label."container_name"
+              perSeriesAligner: ALIGN_RATE
+            filter: metric.type="kubernetes.io/container/cpu/core_usage_time" resource.type="k8s_container"
+            pickTimeSeriesFilter:
+              direction: TOP
+              numTimeSeries: 5
+              rankingMethod: METHOD_MEAN
+            secondaryAggregation: {}
+      timeshiftDuration: 0s
+      yAxis:
+        label: y1Axis
+        scale: LINEAR
+  - title: Avg CPU usage by project, namespace, container
+    xyChart:
+      chartOptions:
+        mode: COLOR
+      dataSets:
+      - minAlignmentPeriod: 60s
+        plotType: STACKED_AREA
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              crossSeriesReducer: REDUCE_MEAN
+              groupByFields:
+              - resource.label."project_id"
+              - resource.label."namespace_name"
+              - resource.label."container_name"
+              perSeriesAligner: ALIGN_RATE
+            filter: metric.type="kubernetes.io/container/cpu/core_usage_time" resource.type="k8s_container"
+            pickTimeSeriesFilter:
+              direction: TOP
+              numTimeSeries: 5
+              rankingMethod: METHOD_MEAN
+            secondaryAggregation: {}
+      timeshiftDuration: 0s
+      yAxis:
+        label: y1Axis
+        scale: LINEAR
+  - title: Total stored objects by project, storage bucket
+    xyChart:
+      chartOptions:
+        mode: COLOR
+      dataSets:
+      - minAlignmentPeriod: 3600s
+        plotType: STACKED_AREA
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              crossSeriesReducer: REDUCE_SUM
+              groupByFields:
+              - resource.label."project_id"
+              - resource.label."bucket_name"
+              perSeriesAligner: ALIGN_MEAN
+            filter: metric.type="storage.googleapis.com/storage/object_count" resource.type="gcs_bucket"
+            pickTimeSeriesFilter:
+              direction: TOP
+              numTimeSeries: 5
+              rankingMethod: METHOD_SUM
+            secondaryAggregation: {}
+      timeshiftDuration: 0s
+      yAxis:
+        label: y1Axis
+        scale: LINEAR
+  - title: Total memory usage by project, namespace, container
+    xyChart:
+      chartOptions:
+        mode: COLOR
+      dataSets:
+      - minAlignmentPeriod: 60s
+        plotType: STACKED_AREA
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              crossSeriesReducer: REDUCE_SUM
+              groupByFields:
+              - resource.label."project_id"
+              - resource.label."namespace_name"
+              - resource.label."container_name"
+              perSeriesAligner: ALIGN_MEAN
+            filter: metric.type="kubernetes.io/container/memory/used_bytes" resource.type="k8s_container"
+            pickTimeSeriesFilter:
+              direction: TOP
+              numTimeSeries: 5
+              rankingMethod: METHOD_MEAN
+            secondaryAggregation: {}
+      timeshiftDuration: 0s
+      yAxis:
+        label: y1Axis
+        scale: LINEAR
+  - title: Avg memory usage by project, namespace, container
+    xyChart:
+      chartOptions:
+        mode: COLOR
+      dataSets:
+      - minAlignmentPeriod: 60s
+        plotType: STACKED_AREA
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              crossSeriesReducer: REDUCE_MEAN
+              groupByFields:
+              - resource.label."project_id"
+              - resource.label."namespace_name"
+              - resource.label."container_name"
+              perSeriesAligner: ALIGN_MEAN
+            filter: metric.type="kubernetes.io/container/memory/used_bytes" resource.type="k8s_container"
+            pickTimeSeriesFilter:
+              direction: TOP
+              numTimeSeries: 5
+              rankingMethod: METHOD_MEAN
+            secondaryAggregation: {}
+      timeshiftDuration: 0s
+      yAxis:
+        label: y1Axis
+        scale: LINEAR
+  - title: Total received data by project, storage bucket
+    xyChart:
+      chartOptions:
+        mode: COLOR
+      dataSets:
+      - minAlignmentPeriod: 60s
+        plotType: STACKED_AREA
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              crossSeriesReducer: REDUCE_SUM
+              groupByFields:
+              - resource.label."project_id"
+              - resource.label."bucket_name"
+              perSeriesAligner: ALIGN_RATE
+            filter: metric.type="storage.googleapis.com/network/received_bytes_count"
+              resource.type="gcs_bucket"
+            pickTimeSeriesFilter:
+              direction: TOP
+              numTimeSeries: 5
+              rankingMethod: METHOD_SUM
+            secondaryAggregation: {}
+          unitOverride: By
+      timeshiftDuration: 0s
+      yAxis:
+        label: y1Axis
+        scale: LINEAR
+  - title: Total CPU cores by project, nodepool
+    xyChart:
+      chartOptions:
+        mode: COLOR
+      dataSets:
+      - minAlignmentPeriod: 60s
+        plotType: STACKED_AREA
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              crossSeriesReducer: REDUCE_SUM
+              groupByFields:
+              - resource.label."project_id"
+              - metadata.user_labels."cloud.google.com/gke-nodepool"
+              perSeriesAligner: ALIGN_MEAN
+            filter: metric.type="kubernetes.io/node/cpu/total_cores" resource.type="k8s_node"
+            secondaryAggregation: {}
+          unitOverride: '{cpu}'
+      timeshiftDuration: 0s
+      yAxis:
+        label: y1Axis
+        scale: LINEAR
+  - title: Google Cloud HTTP/S Load Balancing Rule - Request count [SUM]
+    xyChart:
+      chartOptions:
+        mode: COLOR
+      dataSets:
+      - minAlignmentPeriod: 60s
+        plotType: STACKED_AREA
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              crossSeriesReducer: REDUCE_SUM
+              perSeriesAligner: ALIGN_RATE
+            filter: metric.type="loadbalancing.googleapis.com/https/request_count"
+              resource.type="https_lb_rule"
+            secondaryAggregation: {}
+          unitOverride: '1'
+      timeshiftDuration: 0s
+      yAxis:
+        label: y1Axis
+        scale: LINEAR
+  - title: HTTP 50x returned
+    xyChart:
+      chartOptions:
+        mode: COLOR
+      dataSets:
+      - minAlignmentPeriod: 60s
+        plotType: STACKED_BAR
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              perSeriesAligner: ALIGN_COUNT
+            filter: metric.type="logging.googleapis.com/user/http_load_balancer_500"
+            secondaryAggregation: {}
+          unitOverride: '1'
+      - minAlignmentPeriod: 60s
+        plotType: STACKED_BAR
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              perSeriesAligner: ALIGN_COUNT
+            filter: metric.type="logging.googleapis.com/user/http_load_balancer_502"
+            secondaryAggregation: {}
+          unitOverride: '1'
+      timeshiftDuration: 0s
+      yAxis:
+        label: y1Axis
+        scale: LINEAR
+  - title: logging/user/ad-hoc-svrl-request
+    xyChart:
+      chartOptions:
+        mode: COLOR
+      dataSets:
+      - minAlignmentPeriod: 60s
+        plotType: STACKED_BAR
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              perSeriesAligner: ALIGN_COUNT
+            filter: metric.type="logging.googleapis.com/user/ad-hoc-svrl-request"
+            secondaryAggregation: {}
+          unitOverride: '1'
+      timeshiftDuration: 0s
+      yAxis:
+        label: y1Axis
+        scale: LINEAR
+  - title: Cronjobs completed
+    xyChart:
+      chartOptions:
+        mode: COLOR
+      dataSets:
+      - minAlignmentPeriod: 86400s
+        plotType: STACKED_BAR
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              crossSeriesReducer: REDUCE_SUM
+              perSeriesAligner: ALIGN_SUM
+            filter: metric.type="logging.googleapis.com/user/cronjob-completed-iati-data-update"
+              resource.type="global"
+            secondaryAggregation: {}
+          unitOverride: '1'
+      - minAlignmentPeriod: 86400s
+        plotType: STACKED_BAR
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              crossSeriesReducer: REDUCE_SUM
+              perSeriesAligner: ALIGN_SUM
+            filter: metric.type="logging.googleapis.com/user/cronjob-completed-refresh-from-registry"
+              resource.type="global"
+            secondaryAggregation: {}
+          unitOverride: '1'
+      - minAlignmentPeriod: 86400s
+        plotType: STACKED_BAR
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              crossSeriesReducer: REDUCE_SUM
+              perSeriesAligner: ALIGN_SUM
+            filter: metric.type="logging.googleapis.com/user/cronjob-completed-remove-obsolete-data"
+              resource.type="global"
+            secondaryAggregation: {}
+          unitOverride: '1'
+      - minAlignmentPeriod: 86400s
+        plotType: STACKED_BAR
+        timeSeriesQuery:
+          timeSeriesFilter:
+            aggregation:
+              crossSeriesReducer: REDUCE_SUM
+              perSeriesAligner: ALIGN_SUM
+            filter: metric.type="logging.googleapis.com/user/cronjob-completed-remove-orphan-data"
+              resource.type="global"
+            secondaryAggregation: {}
+          unitOverride: '1'
+      timeshiftDuration: 0s
+      yAxis:
+        label: y1Axis
+        scale: LINEAR
+name: projects/924950767440/dashboards/1085583

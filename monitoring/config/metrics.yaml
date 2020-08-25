@@ -1,0 +1,109 @@
+---
+createTime: '2019-03-06T12:49:12.894527206Z'
+filter: |-
+  resource.type="http_load_balancer"
+  "/process/get-svrl"
+metricDescriptor:
+  metricKind: DELTA
+  name: projects/dataworkbench-io/metricDescriptors/logging.googleapis.com/user/ad-hoc-svrl-request
+  type: logging.googleapis.com/user/ad-hoc-svrl-request
+  unit: '1'
+  valueType: INT64
+name: ad-hoc-svrl-request
+updateTime: '2019-03-06T12:49:12.894527206Z'
+---
+filter: |
+  resource.type="k8s_container"
+  "remove_obsolete_data - Job execution finished"
+metricDescriptor:
+  metricKind: DELTA
+  name: projects/dataworkbench-io/metricDescriptors/logging.googleapis.com/user/cronjob-completed-iati-data-update
+  type: logging.googleapis.com/user/cronjob-completed-iati-data-update
+  unit: '1'
+  valueType: INT64
+name: cronjob-completed-iati-data-update
+updateTime: '2020-08-13T19:28:48.520616188Z'
+---
+filter: |
+  resource.type="k8s_container"
+  "refresh_from_registry - Job execution finished"
+metricDescriptor:
+  metricKind: DELTA
+  name: projects/dataworkbench-io/metricDescriptors/logging.googleapis.com/user/cronjob-completed-refresh-from-registry
+  type: logging.googleapis.com/user/cronjob-completed-refresh-from-registry
+  unit: '1'
+  valueType: INT64
+name: cronjob-completed-refresh-from-registry
+updateTime: '2020-08-13T19:27:56.331749864Z'
+---
+filter: |
+  resource.type="k8s_container"
+  "remove_obsolete_data - Job execution finished"
+metricDescriptor:
+  metricKind: DELTA
+  name: projects/dataworkbench-io/metricDescriptors/logging.googleapis.com/user/cronjob-completed-remove-obsolete-data
+  type: logging.googleapis.com/user/cronjob-completed-remove-obsolete-data
+  unit: '1'
+  valueType: INT64
+name: cronjob-completed-remove-obsolete-data
+updateTime: '2020-08-13T19:30:05.876012420Z'
+---
+filter: |
+  resource.type="k8s_container"
+  "remove_orphan_data - Job execution finished"
+metricDescriptor:
+  metricKind: DELTA
+  name: projects/dataworkbench-io/metricDescriptors/logging.googleapis.com/user/cronjob-completed-remove-orphan-data
+  type: logging.googleapis.com/user/cronjob-completed-remove-orphan-data
+  unit: '1'
+  valueType: INT64
+name: cronjob-completed-remove-orphan-data
+updateTime: '2020-08-13T19:30:20.383803685Z'
+---
+createTime: '2019-03-04T15:56:02.324483793Z'
+description: Load balancer returns HTTP status 500 to client
+filter: |-
+  resource.type="http_load_balancer"
+  httpRequest.status=500
+metricDescriptor:
+  description: Load balancer returns HTTP status 500 to client
+  metricKind: DELTA
+  name: projects/dataworkbench-io/metricDescriptors/logging.googleapis.com/user/http_load_balancer_500
+  type: logging.googleapis.com/user/http_load_balancer_500
+  unit: '1'
+  valueType: INT64
+name: http_load_balancer_500
+updateTime: '2019-03-04T15:56:02.324483793Z'
+---
+createTime: '2019-03-07T16:18:52.955310248Z'
+filter: |-
+  resource.type="http_load_balancer"
+  httpRequest.status=502
+metricDescriptor:
+  metricKind: DELTA
+  name: projects/dataworkbench-io/metricDescriptors/logging.googleapis.com/user/http_load_balancer_502
+  type: logging.googleapis.com/user/http_load_balancer_502
+  unit: '1'
+  valueType: INT64
+name: http_load_balancer_502
+updateTime: '2019-03-07T16:18:52.955310248Z'
+---
+createTime: '2019-05-29T08:52:57.872914523Z'
+description: Log messages from pods with ids starting with mongo- and severity warning
+  and higher
+filter: |
+  resource.type="container"
+  resource.labels.cluster_name="cluster-1"
+  resource.labels.namespace_id="default"
+  severity>=WARNING
+  resource.labels.pod_id:"mongo-"
+metricDescriptor:
+  description: Log messages from pods with ids starting with mongo- and severity warning
+    and higher
+  metricKind: DELTA
+  name: projects/dataworkbench-io/metricDescriptors/logging.googleapis.com/user/mongo-log-warnings
+  type: logging.googleapis.com/user/mongo-log-warnings
+  unit: '1'
+  valueType: INT64
+name: mongo-log-warnings
+updateTime: '2019-05-29T08:52:57.872914523Z'
