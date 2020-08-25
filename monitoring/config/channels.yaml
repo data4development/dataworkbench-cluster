@@ -1,0 +1,24 @@
+---
+displayName: '#dev_ops'
+enabled: true
+labels:
+  auth_token: '***********************************************************************a91e'
+  channel_name: '#dev_ops'
+name: projects/dataworkbench-io/notificationChannels/15140821172059489370
+type: slack
+---
+displayName: '#gcp-dataworkbench-io on drostan'
+enabled: true
+labels:
+  auth_token: '*********************************************************************dc4e'
+  channel_name: '#gcp-dataworkbench-io'
+name: projects/dataworkbench-io/notificationChannels/16916187532265352433
+type: slack
+---
+displayName: '#gcp-d4d-dataworkbench on drostan'
+enabled: true
+labels:
+  auth_token: '*********************************************************************dc4e'
+  channel_name: '#gcp-d4d-dataworkbench'
+name: projects/dataworkbench-io/notificationChannels/17691224668942832641
+type: slack

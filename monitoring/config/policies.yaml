@@ -1,0 +1,155 @@
+---
+combiner: OR
+conditions:
+- conditionThreshold:
+    aggregations:
+    - alignmentPeriod: 1200s
+      crossSeriesReducer: REDUCE_COUNT_FALSE
+      groupByFields:
+      - resource.*
+      perSeriesAligner: ALIGN_NEXT_OLDER
+    comparison: COMPARISON_GT
+    duration: 300s
+    filter: metric.type="monitoring.googleapis.com/uptime_check/check_passed" resource.type="uptime_url"
+      metric.label."check_id"="check-api-access-to-mongo"
+    thresholdValue: 1.0
+    trigger:
+      count: 1
+  displayName: Uptime Health Check on Check API access to Mongo
+  name: projects/dataworkbench-io/alertPolicies/10970856870282560358/conditions/10970856870282563567
+creationRecord:
+  mutateTime: '2018-11-08T10:37:11.995425204Z'
+  mutatedBy: rolfkleef@gmail.com
+displayName: External API Mongo access check
+enabled: true
+mutationRecord:
+  mutateTime: '2020-08-12T13:49:35.009799254Z'
+  mutatedBy: rolf@drostan.org
+name: projects/dataworkbench-io/alertPolicies/10970856870282560358
+notificationChannels:
+- projects/dataworkbench-io/notificationChannels/16916187532265352433
+---
+combiner: OR
+conditions:
+- conditionThreshold:
+    aggregations:
+    - alignmentPeriod: 1200s
+      crossSeriesReducer: REDUCE_COUNT_FALSE
+      groupByFields:
+      - resource.*
+      perSeriesAligner: ALIGN_NEXT_OLDER
+    comparison: COMPARISON_GT
+    duration: 300s
+    filter: metric.type="monitoring.googleapis.com/uptime_check/check_passed" resource.type="uptime_url"
+      metric.label."check_id"="check-homepage"
+    thresholdValue: 1.0
+    trigger:
+      count: 1
+  displayName: Homepage unreachable
+  name: projects/dataworkbench-io/alertPolicies/2380355668897681848/conditions/2380355668897684133
+- conditionThreshold:
+    aggregations:
+    - alignmentPeriod: 1200s
+      crossSeriesReducer: REDUCE_COUNT_FALSE
+      groupByFields:
+      - resource.*
+      perSeriesAligner: ALIGN_NEXT_OLDER
+    comparison: COMPARISON_GT
+    duration: 300s
+    filter: metric.type="monitoring.googleapis.com/uptime_check/check_passed" resource.type="uptime_url"
+      metric.label."check_id"="check-api"
+    thresholdValue: 1.0
+    trigger:
+      count: 1
+  displayName: API unreachable
+  name: projects/dataworkbench-io/alertPolicies/2380355668897681848/conditions/1681334304134428352
+- conditionThreshold:
+    aggregations:
+    - alignmentPeriod: 1200s
+      crossSeriesReducer: REDUCE_COUNT_FALSE
+      groupByFields:
+      - resource.*
+      perSeriesAligner: ALIGN_NEXT_OLDER
+    comparison: COMPARISON_GT
+    duration: 300s
+    filter: metric.type="monitoring.googleapis.com/uptime_check/check_passed" resource.type="uptime_url"
+      metric.label."check_id"="check-api-access-to-mongo"
+    thresholdValue: 1.0
+    trigger:
+      count: 1
+  displayName: Mongo unreachable
+  name: projects/dataworkbench-io/alertPolicies/2380355668897681848/conditions/1681334304134430451
+creationRecord:
+  mutateTime: '2018-11-07T20:47:47.130621428Z'
+  mutatedBy: rolfkleef@gmail.com
+displayName: Website unreachable alerts
+documentation:
+  content: There is a problem reaching the homepage, the API, or the Mongo backend
+    via the API.
+  mimeType: text/markdown
+enabled: true
+mutationRecord:
+  mutateTime: '2018-11-07T20:57:05.162731481Z'
+  mutatedBy: rolfkleef@gmail.com
+name: projects/dataworkbench-io/alertPolicies/2380355668897681848
+notificationChannels:
+- projects/dataworkbench-io/notificationChannels/15140821172059489370
+---
+combiner: OR
+conditions:
+- conditionAbsent:
+    aggregations:
+    - alignmentPeriod: 60s
+      crossSeriesReducer: REDUCE_COUNT
+      perSeriesAligner: ALIGN_COUNT
+    duration: 7200s
+    filter: metric.type="logging.googleapis.com/user/cronjob-completed-iati-data-update"
+      resource.type="global"
+    trigger:
+      count: 1
+  displayName: logging/user/cronjob-completed-iati-data-update [COUNT]
+  name: projects/dataworkbench-io/alertPolicies/2606524729162471753/conditions/2606524729162469744
+creationRecord:
+  mutateTime: '2018-09-05T12:02:08.833666480Z'
+  mutatedBy: rolfkleef@gmail.com
+displayName: cronjob-completed absent for iati-data-update
+documentation:
+  content: A cronjob to update IATI data has not completed recently.
+  mimeType: text/markdown
+enabled: true
+mutationRecord:
+  mutateTime: '2019-06-14T07:57:52.976545622Z'
+  mutatedBy: rolfkleef@gmail.com
+name: projects/dataworkbench-io/alertPolicies/2606524729162471753
+notificationChannels:
+- projects/dataworkbench-io/notificationChannels/15140821172059489370
+---
+combiner: OR
+conditions:
+- conditionThreshold:
+    aggregations:
+    - alignmentPeriod: 60s
+      crossSeriesReducer: REDUCE_COUNT
+      perSeriesAligner: ALIGN_RATE
+    comparison: COMPARISON_GT
+    duration: 300s
+    filter: metric.type="logging.googleapis.com/user/mongo-log-warnings"
+    trigger:
+      count: 1
+  displayName: logging/user/mongo-log-warnings [COUNT]
+  name: projects/dataworkbench-io/alertPolicies/8155818919985493027/conditions/8155818919985494040
+creationRecord:
+  mutateTime: '2019-05-29T08:57:51.831329988Z'
+  mutatedBy: rolfkleef@gmail.com
+displayName: Log warnings from mongo
+documentation:
+  content: Warning(s) (or higher severity) logged from mongo pods, may indicate problems
+    with data synchronisation.
+  mimeType: text/markdown
+enabled: true
+mutationRecord:
+  mutateTime: '2019-05-29T08:57:51.831329988Z'
+  mutatedBy: rolfkleef@gmail.com
+name: projects/dataworkbench-io/alertPolicies/8155818919985493027
+notificationChannels:
+- projects/dataworkbench-io/notificationChannels/15140821172059489370
