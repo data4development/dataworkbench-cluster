@@ -68,6 +68,6 @@ configMapGenerator:
   files:
   - properties/datasources.local.json
 
-- name: ssmtp-config
+- name: msmtp-config
   files:
-  - properties/ssmtp.conf
+  - properties/msmtprc
