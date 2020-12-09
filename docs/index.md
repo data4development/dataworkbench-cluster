@@ -9,7 +9,7 @@ The current version uses the Google Kubernetes Engine to host and manage the clu
 
 Each component executes one or more services or tasks. The cluster configuration binds the components to the right deployment environment.
 
-![](system-overview.drawio.svg)
+![System overview diagram](system-overview.drawio.svg)
 
 ## Container configuration in Docker and Kubernetes
 
@@ -17,4 +17,4 @@ Services and tasks will connect to resources outside the container image. We use
 
 The result is that the running configuration of the cluster is completely contained in a git repository. The initial setup of the cluster and backend resources still needs manual steps.
 
-![](gitops-configs.drawio.svg)
+![Gitops overview diagram](gitops-configs.drawio.svg)

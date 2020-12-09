@@ -32,8 +32,6 @@ spec:
         app: validator-api
         tier: frontend
     spec:
-      nodeSelector:
-        node: core
       containers:
       - name: validator-api-app
         image: gcr.io/d4d-dataworkbench/validator-api:1.0.0
@@ -47,9 +45,10 @@ spec:
         resources:
           requests:
             memory: "512Mi"
-            cpu: "200m"
+            cpu: "100m"
           limits:
             memory: "1Gi"
+            cpu: "200m"
         volumeMounts:
         - name: api-datasources-properties-volume
           mountPath: /app/server/datasources.local.json
@@ -109,9 +108,10 @@ spec:
         resources:
           requests:
             memory: "512Mi"
-            cpu: "200m"
+            cpu: "100m"
           limits:
             memory: "1Gi"
+            cpu: "200m"
         volumeMounts:
         - name: api-datasources-properties-volume
           mountPath: /app/server/datasources.local.json

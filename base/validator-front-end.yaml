@@ -32,8 +32,6 @@ spec:
         app: validator-front-end
         tier: frontend
     spec:
-      nodeSelector:
-        node: core
       containers:
       - name: validator-front-end
         image: gcr.io/d4d-dataworkbench/validator-front-end:0.8.7
@@ -47,9 +45,10 @@ spec:
         resources:
           requests:
             memory: "512Mi"
-            cpu: "200m"
+            cpu: "50m"
           limits:
             memory: "1Gi"
+            cpu: "100m"
         volumeMounts:
         - name: frontend-env-js-volume
           mountPath: /usr/share/nginx/html/iati-feedback/env.js
