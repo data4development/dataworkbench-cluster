@@ -27,6 +27,9 @@ spec:
               name: iati-urls
             - mountPath: /home/workspace
               name: workspace
+            - name: gitcookies
+              mountPath: /home/git/cookies
+              subPath: gitcookies
             resources:
               requests:
                 memory: "512Mi"
@@ -47,3 +50,6 @@ spec:
             hostPath:
               path: /home/workspace
               type: DirectoryOrCreate
+          - name: gitcookies
+            configMap:
+              name: gitcookies

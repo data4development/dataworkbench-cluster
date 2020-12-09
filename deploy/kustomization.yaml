@@ -71,3 +71,7 @@ configMapGenerator:
 - name: msmtp-config
   files:
   - properties/msmtprc
+
+- name: gitcookies
+  files:
+  - properties/gitcookies
