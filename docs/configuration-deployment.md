@@ -16,7 +16,7 @@ In the public cluster configuration repository, the `develop` branch is used for
 
 At the moment, we still perform several steps by hand (red lines). These should become automated steps in a CI/CD pipeline.
 
-![](gitops-current.drawio.svg)
+![Git and kustomize overview diagram](gitops-current.drawio.svg)
 
 ## Container configuration in Docker and Kubernetes
 
@@ -135,5 +135,5 @@ The Postgres database runs as a Google Cloud SQL Service and holds the logs of P
 
 The Mongo database runs as a separate cluster hosted via MongoDB Atlas, in the same zone as the DataWorkbench cluster, and holds information about the datasets in the system, and about IATI publishers (updated from the IATI Registry).
 
-![](./deployment-overview.drawio.svg)
+![Deployment overview diagram](./deployment-overview.drawio.svg)
 
