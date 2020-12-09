@@ -45,9 +45,10 @@ spec:
         resources:
           requests:
             memory: "512Mi"
-            cpu: "200m"
+            cpu: "100m"
           limits:
             memory: "1Gi"
+            cpu: "200m"
         volumeMounts:
         - name: api-datasources-properties-volume
           mountPath: /app/server/datasources.local.json
@@ -107,9 +108,10 @@ spec:
         resources:
           requests:
             memory: "512Mi"
-            cpu: "200m"
+            cpu: "100m"
           limits:
             memory: "1Gi"
+            cpu: "200m"
         volumeMounts:
         - name: api-datasources-properties-volume
           mountPath: /app/server/datasources.local.json

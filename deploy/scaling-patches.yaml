@@ -3,25 +3,25 @@ kind: Deployment
 metadata:
   name: homepage
 spec:
-  replicas: 1
+  replicas: 3
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: validator-api-public
 spec:
-  replicas: 1
+  replicas: 3
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: validator-api
 spec:
-  replicas: 1
+  replicas: 3
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: validator-front-end
 spec:
-  replicas: 1
+  replicas: 3
