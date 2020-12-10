@@ -55,10 +55,7 @@ metadata:
 spec:
   timeoutSec: 3600
 ---
-apiVersion: networking.gke.io/v1beta1
+apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
   name: web-certificate
-spec:
-  domains:
-    - example.com
