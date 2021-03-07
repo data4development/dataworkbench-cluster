@@ -123,11 +123,9 @@ Use `kubectl kustomize deploy | less` to inspect the complete configuration that
 
 ## Cluster architecture
 
-The cluster consists of two types of nodes.
+The cluster consists of a node pool of pre-emptible nodes. Since all state is maintained outside the cluster, we can safely discard and restart services, and benefit from the cheaper node types for batch processing. The "permanent services" (API, static files, front-end) can be scaled to multiple instances and don't require a lot of resources. They can run alongside more resource-intense processing jobs for which multiple nodes will be allocated.
 
-1. A `default-pool` of nodes that are permanently available, to run the API and the web front-end. The API service provides the point of contact for other services within the cluster, as well as for the outside world.
-
-2. A `pre-emptible-pool` of nodes to mainly run batch operations. These nodes can be terminated at any point. This pool is configured with auto-scaling to grow as needed (within limits), to offer a trade-off between processing speed and time.
+The homepage container is basically a proxy that serves static files from Google Cloud Storage. This approach will be applied to the front-end application as well. This means part of the deployment process will move to a more serverless architecture.
 
 In addition, there still is a separate server running the IATI Data Refresher to update the IATI snapshot. The data is then pushed to a Source Repository on the Google Cloud Platform.
 
