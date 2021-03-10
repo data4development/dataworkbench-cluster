@@ -1,75 +1,76 @@
----
-title: Environment setup
-suborder: 3
----
+= Environment setup
+:suborder: 3
 
 Once a Google project and of the key cluster infrastructure and backend services are set up, it's time to add a specific deployment environment.
 
-### Storage
+=== Storage
 
 Create the Google Storage buckets for each environment.
 
-{:.warning}
+WARNING: Bucket names have to be globally unique, which poses problems working with different environments: the service(s) using the Storage backend will need to be configured to use the appropriate buckets.
 
-TODO: Bucket names have to be globally unique, which poses problems working with different environments: the service(s) using the Storage backend will need to be configured to use the appropriate buckets.
-
-### Postgresql
+=== Postgresql
 
 The setup folder has the DDL to set up the Pentaho logs database in a database of choice.
 
-### VPC network
+=== VPC network
 
-Under "External IP addresses", reserve a global static IP address to be used by the ingress later on. Give it a name like `stage-ip4-dataworkbench-io`:
+Under "External IP addresses", reserve a global static IP address to be used by the ingress later on.
+Give it a name like `stage-ip4-dataworkbench-io`:
 
-```bash
+[source,bash]
+----
 gcloud compute addresses create stage-ip4-dataworkbench-io --global
-```
-
-{:.warning}
+----
 
 Make sure to use the `--global` flag, otherwise the ingress will not bind to it.
 
 The address can now be used in the Ingress specification:
 
-```yaml
+[source,yaml]
+----
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: dwb-ingress
   annotations:
     kubernetes.io/ingress.global-static-ip-name: stage-ip4-dataworkbench-io
-```
+----
 
 Once the IP address is available, add it to the DNS of the domain of choice.
 
-### Namespaces
+=== Namespaces
 
 The respective testing, staging and production branches specify their namespace via kustomize.
 
 In `namespace.yaml`:
 
-```yaml
+[source,yaml]
+----
 apiVersion: v1
 kind: Namespace
 metadata:
   name: testing
-```
+----
 
 In `kustomize.yaml`:
 
-```yaml
+[source,yaml]
+----
 # ...
 resources:
 - namespace.yaml
 
 namespace: testing
-```
+----
 
-{:.warning}
+[WARNING]
+====
+Nodes and persistentVolumes are not in a namespace.
+For storage in persistentVolumes, this requires some additional configuration to make sure applications don't interfere across namespaces.
+====
 
-Nodes and persistentVolumes are not in a namespace. For storage in persistentVolumes, this requires some additional configuration to make sure applications don't interfere across namespaces.
-
-### MongoDB
+=== MongoDB
 
 Once the Mongo service is up and running, it still needs to be configured with the database for the deployment.
 
