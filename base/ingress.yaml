@@ -1,13 +1,16 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: dataworkbench-ingress
   annotations:
     networking.gke.io/managed-certificates: web-certificate
 spec:
-  backend:
-    serviceName: homepage
-    servicePort: 80
+  # ingressClassName: external-lb
+  defaultBackend:
+    service:
+      name: homepage
+      port:
+        number: 80
   rules:
     - http:
         paths:
@@ -15,37 +18,65 @@ spec:
           # and also a separate (duplicate) rule for URLs to a directory
           # but not ending with a '/'
         - path: /iati-feedback
+          pathType: ImplementationSpecific
           backend:
-            serviceName: validator-front-end
-            servicePort: 80
+            service:
+              name: validator-front-end
+              port:
+                number: 80
         - path: /iati-feedback/*
+          pathType: ImplementationSpecific
           backend:
-            serviceName: validator-front-end
-            servicePort: 80
+            service:
+              name: validator-front-end
+              port:
+                number: 80
+              
         - path: /api/v1
+          pathType: ImplementationSpecific
           backend:
-            serviceName: validator-api-public
-            servicePort: 80
+            service:
+              name: validator-api-public
+              port:
+                number: 80
         - path: /api/v1/*
+          pathType: ImplementationSpecific
           backend:
-            serviceName: validator-api-public
-            servicePort: 80
+            service:
+              name: validator-api-public
+              port:
+                number: 80
+
         - path: /explorer
+          pathType: ImplementationSpecific
           backend:
-            serviceName: validator-api-public
-            servicePort: 80
+            service:
+              name: validator-api-public
+              port:
+                number: 80
         - path: /explorer/*
+          pathType: ImplementationSpecific
           backend:
-            serviceName: validator-api-public
-            servicePort: 80
+            service:
+              name: validator-api-public
+              port:
+                number: 80
+
         - path: /process
+          pathType: ImplementationSpecific
           backend:
-            serviceName: iati-data-validator-webhook
-            servicePort: 80
+            service:
+              name: iati-data-validator-webhook
+              port:
+                number: 80
         - path: /process/*
+          pathType: ImplementationSpecific
           backend:
-            serviceName: iati-data-validator-webhook
-            servicePort: 80
+            service:
+              name: iati-data-validator-webhook
+              port:
+                number: 80
+
 ---
 # https://cloud.google.com/kubernetes-engine/docs/how-to/configure-backend-service
 apiVersion: cloud.google.com/v1beta1
