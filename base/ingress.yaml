@@ -1,9 +1,13 @@
+# https://cloud.google.com/kubernetes-engine/docs/how-to/load-balance-ingress
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: dataworkbench-ingress
   annotations:
     networking.gke.io/managed-certificates: web-certificate
+    # If the class annotation is not specified it defaults to "gce" (external lb).
+    # kubernetes.io/ingress.class: "gce"
+    networking.gke.io/v1beta1.FrontendConfig: "dataworkbench-frontend-config"
 spec:
   # ingressClassName: external-lb
   defaultBackend:
@@ -77,6 +81,15 @@ spec:
               port:
                 number: 80
 
+---
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: dataworkbench-frontend-config
+spec:
+  redirectToHttps:
+    enabled: true
+    responseCodeName: MOVED_PERMANENTLY_DEFAULT
 ---
 # https://cloud.google.com/kubernetes-engine/docs/how-to/configure-backend-service
 apiVersion: cloud.google.com/v1beta1
