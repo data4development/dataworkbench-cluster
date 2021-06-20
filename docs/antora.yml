@@ -1,0 +1,5 @@
+name: dwb-cluster
+title: Cluster
+version: ~
+nav:
+- modules/ROOT/nav.adoc
