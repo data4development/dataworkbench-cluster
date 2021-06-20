@@ -1,5 +1,4 @@
 = Project and cluster setup
-:suborder: 2
 
 The first part consists of the setup of a Google project, and of the key cluster infrastructure and backend services.
 

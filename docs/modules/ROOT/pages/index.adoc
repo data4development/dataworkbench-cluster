@@ -1,5 +1,4 @@
-= Cluster
-:order: 1
+= {page-component-title}
 
 The DataWorkbench consists of services and background jobs in containers on a Kubernetes cluster.
 

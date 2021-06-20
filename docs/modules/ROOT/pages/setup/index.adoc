@@ -1,5 +1,4 @@
 = Setup
-:suborder: 1
 
 Steps needed to deploy the DataWorkbench components.
 Most of these are specific for the Google Kubernetes Engine environment and may not work in another context.
