@@ -1,5 +1,8 @@
 = Monitoring
 
+This section describes the setup of Google Cloud monitoring and alerting.
+Parts of the setup can be deployed automatically, using templates and scripts in the `/monitoring` directory in the repository.
+
 == Google Cloud Monitoring
 
 The monitoring setup consists of several components.
@@ -11,24 +14,42 @@ In Google Cloud Platform terms:
 * A user (cluster admin) has access to one or more cloud projects, in one or more organisations.
 * A workspace consists of a host project and one or more monitored projects, in a single environment.
 Dashboard charts can be set up across all these cloud projects, to get a single view on for instance all resources used.
-* Alerting policies and notification channels are organised per workspace.
+* Alerting policies and notification channel setup are organised per workspace (or per user?).
 * Incidents can be viewed in a workspace.
 Incidents are managed within the Google Cloud environment, based on alerting policies: if the alert policy would create an alert, an incident is created.
-Once the alert is "switched off", the incident is considered resolved.
+One the alert is "switched off", the incident is considered resolved.
 * Incidents can be reported to multiple notification channels: Slack, email, mobile app, etc.
 * A dashboard can consist of one or more charts that visualise information gathered from various metrics sources in each of the projects in the workspace.
 * Each project has multiple metrics that are provided from a Kubernetes cluster or other Google products associated with the project (storage buckets, for instance).
 In addition, it can define one or more custom log metrics.
 We use it to count the occurrence of specific messages indicating the successful completion of cronjobs.
 
+Several of the monitoring and alerting settings can both be exported and imported using `gcloud` as shell.
+This makes it possible to at least track config changes, and sometimes also port such changes to another environment.
+
 == Managing the monitoring environment
 
-Monitoring and alerting settings can both be exported and imported using `gcloud`.
+Monitoring and alerting is still hard to manage via a command line or version control method.
+We use the following approach:
 
 * All monitoring configuration is in the `/monitoring` directory.
+* Minimal templates are maintained in the `/monitoring/templates` directory.
+These can be instantiated with scripts in the `/monitoring` directory, and provide concrete configurations in the `/monitoring/setup` directory.
+As a next step, these setup configurations can be deployed to update or create the actual setup on the project or workspace.
+*Note:* this may not always work.
 * Actual configurations can be dumped into the `/monitoring/config` directory, and maintained within a deployment branch of the cluster config.
 This makes it possible to monitor configuration changes that may have to be ported back to more general product branches.
-* Scripted deployment is harder, due to timestamps in exported config, identifiers for created objects that need to be referenced in other places.
-We're not attempting this now.
 
-Running the script `monitoring/config_dump.sh` will create a set of files under `/monitoring/config` that lists the current settings for dashboards, notification channels, alerting policies and custom metrics.
+=== Adding Slack notification channels
+
+Setting up a Slack notification channel for a Slack workspace involves getting an OAuth token.
+
+If you do this using a browser from the Google Cloud environment, with the developer tools open at the networking tab, it is possible to capture the `auth_token` provided by Slack.
+There will be a redirect via an URL in the form `+https://slack.com/api/auth.test?token=AUTH_TOKEN_HERE+` with a user token that can be reused in a more scripted configuration (the token starts with `+xoxp_...+`).
+
+=== Exporting and importing the current configuration
+
+* Use `gcloud beta projects list` to see which projects are accessible.
+* Use `gloud beta monitoring channels list` to see the available notification channels.
+
+Running the script `monitoring/config_dump.sh` will create a set of files under `/monitoring/config` that lists the current settings for the elements above.
